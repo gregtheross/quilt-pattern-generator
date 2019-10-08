@@ -1,4 +1,4 @@
-# triangle-quilt-pattern-generator
+# quilt-pattern-generator
 
 Quick randomizer I threw together to help my wife create a triangle quilt pattern.  
 
