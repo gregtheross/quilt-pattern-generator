@@ -4,109 +4,6 @@ import "./App.css";
 
 import Triangle from "./components/Triangle.js";
 
-// todo: convert to a method that generates these (essentially are the number of fabrics)
-const indexes = [
-  1,
-  1,
-  1,
-  1,
-  1,
-  1,
-  1,
-  1,
-  1,
-  1,
-  1,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  3,
-  3,
-  3,
-  3,
-  3,
-  3,
-  3,
-  3,
-  3,
-  3,
-  3,
-  4,
-  4,
-  4,
-  4,
-  4,
-  4,
-  4,
-  4,
-  4,
-  4,
-  4,
-  5,
-  5,
-  5,
-  5,
-  5,
-  5,
-  5,
-  5,
-  5,
-  5,
-  5,
-  6,
-  6,
-  6,
-  6,
-  6,
-  6,
-  6,
-  6,
-  6,
-  6,
-  6,
-  7,
-  7,
-  7,
-  7,
-  7,
-  7,
-  7,
-  7,
-  7,
-  7,
-  7,
-  8,
-  8,
-  8,
-  8,
-  8,
-  8,
-  8,
-  8,
-  8,
-  8,
-  8,
-  9,
-  9,
-  9,
-  9,
-  9,
-  9,
-  9,
-  9,
-  9,
-  9,
-  9
-];
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -114,6 +11,7 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
+      fabricCount: 9,
       rows: []
     };
 
@@ -123,7 +21,16 @@ class App extends React.Component {
   }
 
   shuffle() {
-    console.log("shuffle");
+    // todo: eventually this should get broken out into something like createQuiltPattern() and does
+    //       different calculations based on the selected shape
+
+    // Generate initial array of fabricIds and then shuffle them.
+    // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
+    // If we randomize the selection there is a high risk of having more fabric blocks than others
+    let indexes = [];
+    for (let i = 0; i < this.state.colCount * this.state.rowCount; i++) {
+      indexes.push((i % this.state.fabricCount) + 1);
+    }
 
     var currentIndex = indexes.length,
       temporaryValue,
@@ -141,30 +48,34 @@ class App extends React.Component {
       indexes[randomIndex] = temporaryValue;
     }
 
-    this.setState({ quiltRows: this.createRows() });
+    return indexes;
   }
 
   createRows() {
+    let fabricIndexes = this.shuffle();
+
     let rows = [];
 
     for (let i = 0; i < this.state.rowCount; i++) {
-      rows.push(<div class="row">{this.createColumns(i)}</div>);
+      rows.push(<div class="row">{this.createColumns(i, fabricIndexes)}</div>);
     }
 
-    return rows;
+    this.setState({ quiltRows: rows });
   }
 
-  createColumns(rowIndex) {
+  createColumns(rowIndex, fabricIndexes) {
     let cols = [];
 
     let isUp = rowIndex % 2 == 0;
     let shuffleIndex = rowIndex * this.state.colCount;
     for (let i = 0; i < this.state.colCount; i++) {
       if (isUp) {
-        cols.push(<Triangle direction="up" fabricId={indexes[shuffleIndex]} />);
+        cols.push(
+          <Triangle direction="up" fabricId={fabricIndexes[shuffleIndex]} />
+        );
       } else {
         cols.push(
-          <Triangle direction="down" fabricId={indexes[shuffleIndex]} />
+          <Triangle direction="down" fabricId={fabricIndexes[shuffleIndex]} />
         );
       }
       isUp = !isUp;
@@ -177,7 +88,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.shuffle}>test</button>
+        <button onClick={this.createRows}>test</button>
         <div id="quilt">{this.state.quiltRows}</div>
       </div>
     );
