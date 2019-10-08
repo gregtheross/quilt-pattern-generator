@@ -2,6 +2,8 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import Triangle from "./components/Triangle.js";
+
 // todo: convert to a method that generates these (essentially are the number of fabrics)
 const indexes = [
   1,
@@ -159,18 +161,10 @@ class App extends React.Component {
     let shuffleIndex = rowIndex * this.state.colCount;
     for (let i = 0; i < this.state.colCount; i++) {
       if (isUp) {
-        cols.push(
-          <div
-            class={"triangle up color-" + indexes[shuffleIndex]}
-            key={rowIndex + "-" + i}
-          ></div>
-        );
+        cols.push(<Triangle direction="up" fabricId={indexes[shuffleIndex]} />);
       } else {
         cols.push(
-          <div
-            class={"triangle down color-" + indexes[shuffleIndex]}
-            key={rowIndex + "-" + i}
-          ></div>
+          <Triangle direction="down" fabricId={indexes[shuffleIndex]} />
         );
       }
       isUp = !isUp;
