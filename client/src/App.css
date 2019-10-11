@@ -81,3 +81,9 @@
   line-height: 0;
 }
 /* end old stuff */
+
+/* testing SVG stuff */
+.svg-quilt {
+  position: relative;
+}
+/* end testing SVG stuff */

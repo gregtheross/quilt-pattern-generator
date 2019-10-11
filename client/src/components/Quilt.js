@@ -1,7 +1,11 @@
 import React from "react";
 import Triangle from "./Triangle.js";
+import SvgTriangle from "./SvgTriangle.js";
 
 class Quilt extends React.Component {
+  // todo: pass a list of fabric entities (could simply be an id and url) into the props
+  // todo: shuffle the fabrics
+
   getFabricList() {
     // Generate initial array of fabricIds and then shuffle them.
     // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
@@ -31,8 +35,6 @@ class Quilt extends React.Component {
   }
 
   createQuilt() {
-    // todo: eventually this should get handle different calculations based on the selected shape
-
     let fabricList = this.getFabricList();
 
     if (fabricList.length > 0) {
@@ -83,8 +85,66 @@ class Quilt extends React.Component {
     return cols;
   }
 
+  createSvgQuilt() {
+    // todo: eventually this should get handle different calculations based on the selected shape
+
+    let trianglePointsDown = "0 0, 50 50, 100 0";
+    let trianglePointsUp = "50 0, 100 50, 0 50";
+
+    let triangleWidth = 100;
+    let triangleHeight = 50; // todo: calculate this based on equilaterial triangle equation
+
+    let shapeIndex = 0;
+
+    let svgShapes = [];
+    let isUp = true;
+
+    let fabricId = 1;
+
+    for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
+      isUp = rowIndex % 2 === 0;
+      for (let colIndex = 0; colIndex < this.props.colCount; colIndex++) {
+        svgShapes.push(
+          <SvgTriangle
+            id={shapeIndex}
+            points={isUp ? trianglePointsUp : trianglePointsDown}
+            width={100}
+            height={100}
+            top={rowIndex * triangleHeight}
+            left={(colIndex * triangleWidth) / 2}
+            // todo: replace with lookup to a list of fabrics in the props
+            backgroundImage={
+              fabricId === 1
+                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1935/floral-background-vector-medium.png"
+                : fabricId === 2
+                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1409/abstract-pebble-seamless-pattern-vector-medium.png"
+                : fabricId === 3
+                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1416/abstract-waves-seamless-pattern-vector-medium.png"
+                : fabricId === 4
+                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3815/tomatos-and-cucumbers-pattern-vector-medium.png"
+                : "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1845/snowflakes-in-red-and-white-squares-seamless-pattern-vector-medium.png"
+            }
+          />
+        );
+
+        isUp = !isUp;
+        shapeIndex++;
+        if (fabricId === 5) fabricId = 1;
+        else fabricId++;
+      }
+    }
+    return svgShapes;
+  }
+
   render() {
-    return <div className="quilt">{this.createQuilt()}</div>;
+    return (
+      <div>
+        <h2>CSS border hack quilt:</h2>
+        <div className="quilt">{this.createQuilt()}</div>
+        <h2>svg quilt:</h2>
+        <div className="svg-quilt">{this.createSvgQuilt()}</div>
+      </div>
+    );
   }
 }
 
