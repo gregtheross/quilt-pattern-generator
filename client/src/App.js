@@ -11,7 +11,6 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
-      fabricCount: 9, // todo: no longer necessary due to using fabric list
       fabricList: [
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1935/floral-background-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1409/abstract-pebble-seamless-pattern-vector-medium.png",
@@ -24,11 +23,10 @@ class App extends React.Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onFormSubmit(rows, cols, fabricCount) {
+  onFormSubmit(rows, cols) {
     this.setState({
       rowCount: rows,
       colCount: cols,
-      fabricCount: fabricCount
     });
   }
 
@@ -38,7 +36,6 @@ class App extends React.Component {
         <QuiltForm
           rows={this.state.rowCount}
           cols={this.state.colCount}
-          fabricCount={this.state.fabricCount}
           // todo: additional form inputs
           onFormSubmit={this.onFormSubmit}
         />
@@ -46,7 +43,6 @@ class App extends React.Component {
         <Quilt
           rowCount={this.state.rowCount}
           colCount={this.state.colCount}
-          fabricCount={this.state.fabricCount}
           fabricList={this.state.fabricList}
         />
       </div>

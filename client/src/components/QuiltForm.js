@@ -8,7 +8,6 @@ class QuiltForm extends React.Component {
     this.state = {
       rows: props.rows,
       cols: props.cols,
-      fabricCount: props.fabricCount
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +24,6 @@ class QuiltForm extends React.Component {
     this.props.onFormSubmit(
       this.state.rows,
       this.state.cols,
-      this.state.fabricCount
     );
   }
 
@@ -51,17 +49,6 @@ class QuiltForm extends React.Component {
               type="text"
               name="cols"
               defaultValue={this.props.cols}
-              onChange={this.handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            # of Fabrics (1-9):
-            <input
-              type="text"
-              name="fabricCount"
-              defaultValue={this.props.fabricCount}
               onChange={this.handleChange}
             />
           </label>
