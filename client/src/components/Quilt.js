@@ -39,11 +39,12 @@ class Quilt extends React.Component {
 
     let shuffledFabrics = this.getFabricList();
 
-    let trianglePointsDown = "0 0, 50 50, 100 0";
-    let trianglePointsUp = "50 0, 100 50, 0 50";
-
     let triangleWidth = 100;
-    let triangleHeight = 50; // todo: calculate this based on equilaterial triangle equation
+    let triangleHeight = triangleWidth * Math.sqrt(3) / 2;
+
+
+    let trianglePointsDown = "0 0, " + triangleWidth / 2 + " " + triangleHeight + ", 100 0";
+    let trianglePointsUp = "" + triangleWidth / 2 + " 0, 100 " + triangleHeight + ", 0 " + triangleHeight;
 
     let shapeIndex = 0;
 
