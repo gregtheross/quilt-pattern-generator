@@ -15,12 +15,10 @@ class SvgTriangle extends React.Component {
       <div>
         <img
           style={style}
-          //className="clip-svg"
           src={this.props.backgroundImage}
           width="100"
           height="100"
         />
-        {/* todo: should the parent svg move to the quilt? */}
         <svg>
           <defs>
             <clipPath id={this.props.id}>

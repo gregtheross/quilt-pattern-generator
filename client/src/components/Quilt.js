@@ -99,7 +99,7 @@ class Quilt extends React.Component {
     let svgShapes = [];
     let isUp = true;
 
-    let fabricId = 1;
+    let fabricId = 0;
 
     for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
       isUp = rowIndex % 2 === 0;
@@ -112,24 +112,13 @@ class Quilt extends React.Component {
             height={100}
             top={rowIndex * triangleHeight}
             left={(colIndex * triangleWidth) / 2}
-            // todo: replace with lookup to a list of fabrics in the props
-            backgroundImage={
-              fabricId === 1
-                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1935/floral-background-vector-medium.png"
-                : fabricId === 2
-                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1409/abstract-pebble-seamless-pattern-vector-medium.png"
-                : fabricId === 3
-                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1416/abstract-waves-seamless-pattern-vector-medium.png"
-                : fabricId === 4
-                ? "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3815/tomatos-and-cucumbers-pattern-vector-medium.png"
-                : "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1845/snowflakes-in-red-and-white-squares-seamless-pattern-vector-medium.png"
-            }
+            backgroundImage={this.props.fabricList[fabricId]}
           />
         );
 
         isUp = !isUp;
         shapeIndex++;
-        if (fabricId === 5) fabricId = 1;
+        if (fabricId === this.props.fabricList.length - 1) fabricId = 0;
         else fabricId++;
       }
     }
