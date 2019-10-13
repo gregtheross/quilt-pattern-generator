@@ -32,7 +32,8 @@ class QuiltForm extends React.Component {
   }
 
   render() {
-    // todo: additional form inputs
+    // todo: add shape type
+    // todo: change form inputs based on shape type selection (e.g., remove height for square)
     return (
       <form onSubmit={this.handleSubmit}>
         <div>

@@ -11,6 +11,7 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
+      shapeType: "square",
       shapeWidth: 80,
       shapeHeight: 0,
       fabricList: [
@@ -30,6 +31,7 @@ class App extends React.Component {
   }
 
   onFormSubmit(rows, cols, shapeWidth, shapeHeight) {
+    // todo: get shape selection from form
     this.setState({
       rowCount: rows,
       colCount: cols,
@@ -52,6 +54,7 @@ class App extends React.Component {
         <Quilt
           rowCount={this.state.rowCount}
           colCount={this.state.colCount}
+          shapeType={this.state.shapeType}
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
           fabricList={this.state.fabricList}

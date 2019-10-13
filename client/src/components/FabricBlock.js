@@ -1,8 +1,6 @@
 import React from "react";
 
-// todo: create base svg polygon that triangle and other future shapes will inherit
-
-class SvgTriangle extends React.Component {
+class FabricBlock extends React.Component {
   render() {
     const style = {
       clipPath: "url(#" + this.props.id + ")",
@@ -31,4 +29,4 @@ class SvgTriangle extends React.Component {
   }
 }
 
-export default SvgTriangle;
+export default FabricBlock;
