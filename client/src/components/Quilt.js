@@ -38,12 +38,11 @@ class Quilt extends React.Component {
 
     let shuffledFabrics = this.getFabricList();
 
-    let triangleWidth = 100;
-    let triangleHeight = triangleWidth * Math.sqrt(3) / 2;
+    let triangleWidth = this.props.shapeWidth;
+    let triangleHeight = this.props.shapeHeight > 0 ? this.props.shapeHeight : triangleWidth * Math.sqrt(3) / 2;
 
-
-    let trianglePointsDown = "0 0, " + triangleWidth / 2 + " " + triangleHeight + ", 100 0";
-    let trianglePointsUp = "" + triangleWidth / 2 + " 0, 100 " + triangleHeight + ", 0 " + triangleHeight;
+    let trianglePointsDown = "0 0, " + triangleWidth / 2 + " " + triangleHeight + ", " + triangleWidth + " 0";
+    let trianglePointsUp = "" + triangleWidth / 2 + " 0, " + triangleWidth + " " + triangleHeight + ", 0 " + triangleHeight;
 
     let shapeIndex = 0;
 
@@ -56,9 +55,10 @@ class Quilt extends React.Component {
         svgShapes.push(
           <SvgTriangle
             id={shapeIndex}
+            key={shapeIndex}
             points={isUp ? trianglePointsUp : trianglePointsDown}
-            width={100}
-            height={100}
+            width={triangleWidth}
+            height={triangleHeight}
             top={rowIndex * triangleHeight}
             left={(colIndex * triangleWidth) / 2}
             backgroundImage={this.props.fabricList[shuffledFabrics[shapeIndex]]}

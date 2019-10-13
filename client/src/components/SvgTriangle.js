@@ -16,8 +16,8 @@ class SvgTriangle extends React.Component {
         <img
           style={style}
           src={this.props.backgroundImage}
-          width="100"
-          height="100"
+          width={this.props.width}
+          height={this.props.height}
         />
         <svg>
           <defs>
