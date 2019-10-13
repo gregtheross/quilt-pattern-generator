@@ -8,7 +8,8 @@ class QuiltForm extends React.Component {
     this.state = {
       rows: props.rows,
       cols: props.cols,
-      fabricCount: props.fabricCount
+      shapeWidth: props.shapeWidth,
+      shapeHeight: props.shapeHeight,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +26,8 @@ class QuiltForm extends React.Component {
     this.props.onFormSubmit(
       this.state.rows,
       this.state.cols,
-      this.state.fabricCount
+      this.state.shapeWidth,
+      this.state.shapeHeight
     );
   }
 
@@ -57,11 +59,23 @@ class QuiltForm extends React.Component {
         </div>
         <div>
           <label>
-            # of Fabrics (1-9):
+            Shape Width:
             <input
               type="text"
-              name="fabricCount"
-              defaultValue={this.props.fabricCount}
+              name="shapeWidth"
+              defaultValue={this.props.shapeWidth}
+              onChange={this.handleChange}
+            />
+          </label>
+        </div>
+        <div>
+          {/* todo: add tooltip explaining that -1 means to use the width for equal sided shape */}
+          <label>
+            Shape Height:
+            <input
+              type="text"
+              name="shapeHeight"
+              defaultValue={this.props.shapeHeight}
               onChange={this.handleChange}
             />
           </label>

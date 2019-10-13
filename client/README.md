@@ -76,4 +76,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - 404
 - upload fabric pictures
 - form for quilt size
-- convert Quilt to use a <canvas> and the various quilt shapes to be drawn on it based on their coordinates
