@@ -1,5 +1,4 @@
 import React from "react";
-import Triangle from "./Triangle.js";
 import SvgTriangle from "./SvgTriangle.js";
 
 class Quilt extends React.Component {

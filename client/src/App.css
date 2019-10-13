@@ -1,4 +1,4 @@
-/* create-react-app stuff */
+/**** create-react-app stuff ****/
 .App {
   text-align: center;
 }
@@ -22,68 +22,16 @@
   color: #09d3ac;
 }
 
-/* end create-react-app stuff */
+/**** end create-react-app stuff ****/
 
-/* old stuff */
-.triangle {
-  display: inline-block;
-}
 
-.triangle + .triangle {
-  margin-left: -40px;
-}
+/**** layout ****/
 
-.triangle.up {
-  border: 1px solid;
-  border-style: solid;
-  border-width: 50px 40px 0px 40px;
-  height: 0px;
-  width: 0px;
-}
 
-.triangle.down {
-  border: 1px solid;
-  border-style: solid;
-  border-width: 0 40px 50px 40px;
-  height: 0px;
-  width: 0px;
-}
 
-.triangle.color-1 {
-  border-color: red transparent;
-}
-.triangle.color-2 {
-  border-color: green transparent;
-}
-.triangle.color-3 {
-  border-color: blue transparent;
-}
-.triangle.color-4 {
-  border-color: black transparent;
-}
-.triangle.color-5 {
-  border-color: lightblue transparent;
-}
-.triangle.color-6 {
-  border-color: lightseagreen transparent;
-}
-.triangle.color-7 {
-  border-color: orange transparent;
-}
-.triangle.color-8 {
-  border-color: mediumslateblue transparent;
-}
-.triangle.color-9 {
-  border-color: yellow transparent;
-}
 
-.row {
-  line-height: 0;
-}
-/* end old stuff */
-
-/* testing SVG stuff */
+/**** SVG stuff ****/
 .svg-quilt {
   position: relative;
 }
-/* end testing SVG stuff */
+
