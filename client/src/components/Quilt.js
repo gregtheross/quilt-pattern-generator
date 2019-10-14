@@ -32,8 +32,10 @@ class Quilt extends React.Component {
 
   createQuilt() {
     switch (this.props.shapeType) {
-      case "triangle":
-        return this.createTriangleQuilt();
+      case "equilateral triangle":
+        return this.createTriangleQuilt(true);
+      case "isosceles triangle":
+        return this.createTriangleQuilt(false);
       case "square":
         return this.createSquareQuilt();
       default:
@@ -41,17 +43,16 @@ class Quilt extends React.Component {
     }
   }
 
-  createTriangleQuilt() {
+  createTriangleQuilt(isEquilateral) {
     // todo: consolidate some of the shared code with create[SHAPE]Quilt()
 
     let shuffledFabrics = this.getFabricList();
 
     let triangleWidth = this.props.shapeWidth;
     // if no height entered, use equilateral triangle calculation
-    let triangleHeight =
-      this.props.shapeHeight > 0
-        ? this.props.shapeHeight
-        : (triangleWidth * Math.sqrt(3)) / 2;
+    let triangleHeight = isEquilateral
+      ? (triangleWidth * Math.sqrt(3)) / 2
+      : this.props.shapeHeight;
 
     // since the triangles alternate, the coordinates will always be the same for when they point up or down
     let trianglePointsDown = `0 0, ${triangleWidth /

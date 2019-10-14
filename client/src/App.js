@@ -11,10 +11,10 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
-      selectedShapeType: "triangle",
-      shapeTypes: ["triangle", "square"],
+      selectedShapeType: "equilateral triangle",
+      shapeTypes: ["equilateral triangle", "isosceles triangle", "square"],
       shapeWidth: 80,
-      shapeHeight: 0,
+      shapeHeight: 100,
       fabricList: [
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1935/floral-background-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1409/abstract-pebble-seamless-pattern-vector-medium.png",

@@ -8,7 +8,7 @@ class QuiltForm extends React.Component {
     this.state = {
       rows: props.rows,
       cols: props.cols,
-      shapeType: props.shapeType,
+      shapeType: props.selectedShapeType,
       shapeWidth: props.shapeWidth,
       shapeHeight: props.shapeHeight
     };
@@ -96,8 +96,15 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
-        <div>
-          {/* todo: add tooltip explaining that -1 means to use the width for equal sided shape */}
+        <div
+          // todo: handle with a CSS class
+          style={{
+            visibility:
+              this.state.shapeType === "isosceles triangle"
+                ? "visible"
+                : "hidden"
+          }}
+        >
           <label>
             Shape Height:
             <input
