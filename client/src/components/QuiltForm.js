@@ -8,8 +8,9 @@ class QuiltForm extends React.Component {
     this.state = {
       rows: props.rows,
       cols: props.cols,
+      shapeType: props.shapeType,
       shapeWidth: props.shapeWidth,
-      shapeHeight: props.shapeHeight,
+      shapeHeight: props.shapeHeight
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,13 +27,27 @@ class QuiltForm extends React.Component {
     this.props.onFormSubmit(
       this.state.rows,
       this.state.cols,
+      this.state.shapeType,
       this.state.shapeWidth,
       this.state.shapeHeight
     );
   }
 
+  createOptions() {
+    let options = [];
+
+    this.props.shapeTypes.map((value, i) => {
+      options.push(
+        <option value={value} key={i}>
+          {value}
+        </option>
+      );
+    });
+
+    return options;
+  }
+
   render() {
-    // todo: add shape type
     // todo: change form inputs based on shape type selection (e.g., remove height for square)
     return (
       <form onSubmit={this.handleSubmit}>
@@ -56,6 +71,18 @@ class QuiltForm extends React.Component {
               defaultValue={this.props.cols}
               onChange={this.handleChange}
             />
+          </label>
+        </div>
+        <div>
+          <label>
+            Shape Type:
+            <select
+              name="shapeType"
+              defaultValue={this.props.selectedShapeType}
+              onChange={this.handleChange}
+            >
+              {this.createOptions()}
+            </select>
           </label>
         </div>
         <div>
