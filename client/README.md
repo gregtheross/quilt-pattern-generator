@@ -75,4 +75,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 - 404
 - upload fabric pictures
-- form for quilt size
+- styles (research "styled-components")

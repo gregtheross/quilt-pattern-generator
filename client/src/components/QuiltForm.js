@@ -8,8 +8,9 @@ class QuiltForm extends React.Component {
     this.state = {
       rows: props.rows,
       cols: props.cols,
+      shapeType: props.selectedShapeType,
       shapeWidth: props.shapeWidth,
-      shapeHeight: props.shapeHeight,
+      shapeHeight: props.shapeHeight
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,13 +27,28 @@ class QuiltForm extends React.Component {
     this.props.onFormSubmit(
       this.state.rows,
       this.state.cols,
+      this.state.shapeType,
       this.state.shapeWidth,
       this.state.shapeHeight
     );
   }
 
+  createOptions() {
+    let options = [];
+
+    this.props.shapeTypes.map((value, i) => {
+      options.push(
+        <option value={value} key={i}>
+          {value}
+        </option>
+      );
+    });
+
+    return options;
+  }
+
   render() {
-    // todo: additional form inputs
+    // todo: change form inputs based on shape type selection (e.g., remove height for square)
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -59,6 +75,18 @@ class QuiltForm extends React.Component {
         </div>
         <div>
           <label>
+            Shape Type:
+            <select
+              name="shapeType"
+              defaultValue={this.props.selectedShapeType}
+              onChange={this.handleChange}
+            >
+              {this.createOptions()}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
             Shape Width:
             <input
               type="text"
@@ -68,8 +96,15 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
-        <div>
-          {/* todo: add tooltip explaining that -1 means to use the width for equal sided shape */}
+        <div
+          // todo: handle with a CSS class
+          style={{
+            visibility:
+              this.state.shapeType === "isosceles triangle"
+                ? "visible"
+                : "hidden"
+          }}
+        >
           <label>
             Shape Height:
             <input

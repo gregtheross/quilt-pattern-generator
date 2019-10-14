@@ -11,8 +11,10 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
+      selectedShapeType: "equilateral triangle",
+      shapeTypes: ["equilateral triangle", "isosceles triangle", "square"],
       shapeWidth: 80,
-      shapeHeight: 0,
+      shapeHeight: 100,
       fabricList: [
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1935/floral-background-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1409/abstract-pebble-seamless-pattern-vector-medium.png",
@@ -22,17 +24,18 @@ class App extends React.Component {
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/2007/coffee-pattern-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3813/acorn-pattern-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3814/limes-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1377/koi-fish-carp-seamless-pattern-vector-medium.png",
+        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1377/koi-fish-carp-seamless-pattern-vector-medium.png"
       ]
     };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onFormSubmit(rows, cols, shapeWidth, shapeHeight) {
+  onFormSubmit(rows, cols, shapeType, shapeWidth, shapeHeight) {
     this.setState({
       rowCount: rows,
       colCount: cols,
+      selectedShapeType: shapeType,
       shapeWidth: shapeWidth,
       shapeHeight: shapeHeight
     });
@@ -44,6 +47,8 @@ class App extends React.Component {
         <QuiltForm
           rows={this.state.rowCount}
           cols={this.state.colCount}
+          shapeTypes={this.state.shapeTypes}
+          selectedShapeType={this.state.selectedShapeType}
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
           onFormSubmit={this.onFormSubmit}
@@ -52,6 +57,7 @@ class App extends React.Component {
         <Quilt
           rowCount={this.state.rowCount}
           colCount={this.state.colCount}
+          shapeType={this.state.selectedShapeType}
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
           fabricList={this.state.fabricList}
