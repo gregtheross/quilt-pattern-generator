@@ -11,8 +11,13 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
-      selectedShapeType: "equilateral triangle",
-      shapeTypes: ["equilateral triangle", "isosceles triangle", "square"],
+      selectedShapeType: "hexagon",
+      shapeTypes: [
+        "equilateral triangle",
+        "isosceles triangle",
+        "square",
+        "hexagon"
+      ],
       shapeWidth: 80,
       shapeHeight: 100,
       fabricList: [

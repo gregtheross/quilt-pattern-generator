@@ -76,3 +76,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - 404
 - upload fabric pictures
 - styles (research "styled-components")
+- Add scale and total dimension estimates
+- Add cut-off border around quilt

@@ -38,6 +38,8 @@ class Quilt extends React.Component {
         return this.createTriangleQuilt(false);
       case "square":
         return this.createSquareQuilt();
+      case "hexagon":
+        return this.createHexagonQuilt();
       default:
         return <div>Invalid Shape</div>;
     }
@@ -118,6 +120,59 @@ class Quilt extends React.Component {
 
         shapeIndex++;
       }
+    }
+    return svgShapes;
+  }
+
+  // todo: add an option for rotating it 90 degrees
+  createHexagonQuilt() {
+    // todo: consolidate some of the shared code with create[SHAPE]Quilt()
+
+    let shuffledFabrics = this.getFabricList();
+
+    // calculate some re-usable lengths broken up from the hexagon
+    let centerlineWidth = this.props.shapeWidth;
+    let heightOffCenter = (centerlineWidth / 4) * Math.sqrt(3);
+    let internalTriangleShortSide = centerlineWidth / 4;
+
+    let hexagonWidth = centerlineWidth;
+    let hexagonHeight = heightOffCenter * 2;
+
+    // todo: calculate these differently based on the rotation
+    let hexagonPoints =
+      `0 ${heightOffCenter},` +
+      ` ${internalTriangleShortSide} 0,` +
+      ` ${internalTriangleShortSide * 3} 0,` +
+      ` ${centerlineWidth} ${heightOffCenter}` +
+      ` ${internalTriangleShortSide * 3} ${heightOffCenter * 2},` +
+      ` ${internalTriangleShortSide} ${heightOffCenter * 2}`;
+
+    let shapeIndex = 0;
+
+    let svgShapes = [];
+    let offsetRow = false;
+
+    for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
+      for (let colIndex = 0; colIndex < this.props.colCount; colIndex++) {
+        svgShapes.push(
+          <FabricBlock
+            id={shapeIndex}
+            key={shapeIndex}
+            points={hexagonPoints}
+            width={hexagonWidth}
+            height={hexagonHeight}
+            top={(rowIndex * hexagonHeight) / 2}
+            left={
+              colIndex * (hexagonWidth + centerlineWidth / 2) +
+              (offsetRow ? internalTriangleShortSide * 3 : 0)
+            }
+            backgroundImage={this.props.fabricList[shuffledFabrics[shapeIndex]]}
+          />
+        );
+
+        shapeIndex++;
+      }
+      offsetRow = !offsetRow;
     }
     return svgShapes;
   }
