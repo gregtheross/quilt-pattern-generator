@@ -150,9 +150,11 @@ class Quilt extends React.Component {
     let shapeIndex = 0;
 
     let svgShapes = [];
-    let offsetRow = false;
+    let offsetCol;
 
     for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
+      offsetCol = false;
+
       for (let colIndex = 0; colIndex < this.props.colCount; colIndex++) {
         svgShapes.push(
           <FabricBlock
@@ -161,18 +163,19 @@ class Quilt extends React.Component {
             points={hexagonPoints}
             width={hexagonWidth}
             height={hexagonHeight}
-            top={(rowIndex * hexagonHeight) / 2}
+            top={
+              (rowIndex * hexagonHeight) +
+              (offsetCol ? hexagonHeight / 2 : 0)}
             left={
-              colIndex * (hexagonWidth + centerlineWidth / 2) +
-              (offsetRow ? internalTriangleShortSide * 3 : 0)
+              colIndex * internalTriangleShortSide * 3
             }
             backgroundImage={this.props.fabricList[shuffledFabrics[shapeIndex]]}
           />
         );
 
+        offsetCol = !offsetCol;
         shapeIndex++;
       }
-      offsetRow = !offsetRow;
     }
     return svgShapes;
   }
