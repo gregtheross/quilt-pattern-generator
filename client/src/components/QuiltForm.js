@@ -10,7 +10,8 @@ class QuiltForm extends React.Component {
       cols: props.cols,
       shapeType: props.selectedShapeType,
       shapeWidth: props.shapeWidth,
-      shapeHeight: props.shapeHeight
+      shapeHeight: props.shapeHeight,
+      quiltBlocks: props.quiltBlocks,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,18 +20,21 @@ class QuiltForm extends React.Component {
 
   handleChange(e) {
     // todo: consider passing this up to the App and not using a state in this component
-    this.setState({ [e.target.name]: e.target.value });
+    // const value = e.target.name === "quiltBlocks" ? e.target.value.split(',')
+    //   : e.target.type === "checkbox" ? e.target.checked
+    //     : e.target.value;
+
+    // this.setState({ [e.target.name]: value });
+
+
+
+    this.props.onFormInputChange(e);
   }
 
+  // todo: change to a regular button instead of submit
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onFormSubmit(
-      this.state.rows,
-      this.state.cols,
-      this.state.shapeType,
-      this.state.shapeWidth,
-      this.state.shapeHeight
-    );
+    this.props.onFormSubmit();
   }
 
   createOptions() {
@@ -56,8 +60,8 @@ class QuiltForm extends React.Component {
             Rows:
             <input
               type="text"
-              name="rows"
-              defaultValue={this.props.rows}
+              name="rowCount"
+              defaultValue={this.props.rowCount}
               onChange={this.handleChange}
             />
           </label>
@@ -67,8 +71,8 @@ class QuiltForm extends React.Component {
             Columns:
             <input
               type="text"
-              name="cols"
-              defaultValue={this.props.cols}
+              name="colCount"
+              defaultValue={this.props.colCount}
               onChange={this.handleChange}
             />
           </label>
@@ -77,7 +81,7 @@ class QuiltForm extends React.Component {
           <label>
             Shape Type:
             <select
-              name="shapeType"
+              name="selectedShapeType"
               defaultValue={this.props.selectedShapeType}
               onChange={this.handleChange}
             >
@@ -115,8 +119,18 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
+        {/* todo: format it better so it's easier to read?  might not be necessary if I'm going to allow clicking on the blocks to swap them */}
         <div>
-          <input type="submit" value="Create Quilt" />
+          <label>
+            Quilt Definition:
+            <textarea name="quiltBlocks"
+              defaultValue={this.props.quiltBlocks}
+              onChange={this.handleChange}></textarea>
+          </label>
+        </div>
+        {/* todo: change to a regular button instead of submit */}
+        <div>
+          <input type="submit" value="Randomize Quilt" />
         </div>
       </form>
     );

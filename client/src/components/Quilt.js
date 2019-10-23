@@ -48,8 +48,6 @@ class Quilt extends React.Component {
   createTriangleQuilt(isEquilateral) {
     // todo: consolidate some of the shared code with create[SHAPE]Quilt()
 
-    let shuffledFabrics = this.getFabricList();
-
     let triangleWidth = this.props.shapeWidth;
     // if no height entered, use equilateral triangle calculation
     let triangleHeight = isEquilateral
@@ -79,7 +77,7 @@ class Quilt extends React.Component {
             height={triangleHeight}
             top={rowIndex * triangleHeight}
             left={(colIndex * triangleWidth) / 2}
-            backgroundImage={this.props.fabricList[shuffledFabrics[shapeIndex]]}
+            backgroundImage={this.props.fabricList[this.props.quiltBlocks[shapeIndex]]}
           />
         );
 
@@ -92,7 +90,6 @@ class Quilt extends React.Component {
 
   createSquareQuilt() {
     // todo: consolidate some of the shared code with create[SHAPE]Quilt()
-    let shuffledFabrics = this.getFabricList();
 
     let squareWidth = this.props.shapeWidth;
     let squareHeight = this.props.shapeWidth;
@@ -114,7 +111,7 @@ class Quilt extends React.Component {
             height={squareHeight}
             top={rowIndex * squareHeight}
             left={colIndex * squareWidth}
-            backgroundImage={this.props.fabricList[shuffledFabrics[shapeIndex]]}
+            backgroundImage={this.props.fabricList[this.props.quiltBlocks[shapeIndex]]}
           />
         );
 
@@ -127,8 +124,6 @@ class Quilt extends React.Component {
   // todo: add an option for rotating it 90 degrees
   createHexagonQuilt() {
     // todo: consolidate some of the shared code with create[SHAPE]Quilt()
-
-    let shuffledFabrics = this.getFabricList();
 
     // calculate some re-usable lengths broken up from the hexagon
     let centerlineWidth = this.props.shapeWidth;
@@ -169,7 +164,7 @@ class Quilt extends React.Component {
             left={
               colIndex * internalTriangleShortSide * 3
             }
-            backgroundImage={this.props.fabricList[shuffledFabrics[shapeIndex]]}
+            backgroundImage={this.props.fabricList[this.props.quiltBlocks[shapeIndex]]}
           />
         );
 
