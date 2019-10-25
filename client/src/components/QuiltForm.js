@@ -4,30 +4,11 @@ class QuiltForm extends React.Component {
   constructor(props) {
     super(props);
 
-    // todo: consider passing this up to the App and not using a state in this component
-    this.state = {
-      rows: props.rows,
-      cols: props.cols,
-      shapeType: props.selectedShapeType,
-      shapeWidth: props.shapeWidth,
-      shapeHeight: props.shapeHeight,
-      quiltBlocks: props.quiltBlocks,
-    };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    // todo: consider passing this up to the App and not using a state in this component
-    // const value = e.target.name === "quiltBlocks" ? e.target.value.split(',')
-    //   : e.target.type === "checkbox" ? e.target.checked
-    //     : e.target.value;
-
-    // this.setState({ [e.target.name]: value });
-
-
-
     this.props.onFormInputChange(e);
   }
 
@@ -61,7 +42,7 @@ class QuiltForm extends React.Component {
             <input
               type="text"
               name="rowCount"
-              defaultValue={this.props.rowCount}
+              value={this.props.rowCount}
               onChange={this.handleChange}
             />
           </label>
@@ -72,7 +53,7 @@ class QuiltForm extends React.Component {
             <input
               type="text"
               name="colCount"
-              defaultValue={this.props.colCount}
+              value={this.props.colCount}
               onChange={this.handleChange}
             />
           </label>
@@ -82,7 +63,7 @@ class QuiltForm extends React.Component {
             Shape Type:
             <select
               name="selectedShapeType"
-              defaultValue={this.props.selectedShapeType}
+              value={this.props.selectedShapeType}
               onChange={this.handleChange}
             >
               {this.createOptions()}
@@ -95,7 +76,7 @@ class QuiltForm extends React.Component {
             <input
               type="text"
               name="shapeWidth"
-              defaultValue={this.props.shapeWidth}
+              value={this.props.shapeWidth}
               onChange={this.handleChange}
             />
           </label>
@@ -104,7 +85,7 @@ class QuiltForm extends React.Component {
           // todo: handle with a CSS class
           style={{
             visibility:
-              this.state.shapeType === "isosceles triangle"
+              this.props.selectedShapeType === "isosceles triangle"
                 ? "visible"
                 : "hidden"
           }}
@@ -114,7 +95,7 @@ class QuiltForm extends React.Component {
             <input
               type="text"
               name="shapeHeight"
-              defaultValue={this.props.shapeHeight}
+              value={this.props.shapeHeight}
               onChange={this.handleChange}
             />
           </label>
@@ -124,7 +105,7 @@ class QuiltForm extends React.Component {
           <label>
             Quilt Definition:
             <textarea name="quiltBlocks"
-              defaultValue={this.props.quiltBlocks}
+              value={this.props.quiltBlocks}
               onChange={this.handleChange}></textarea>
           </label>
         </div>
