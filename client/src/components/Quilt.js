@@ -77,7 +77,9 @@ class Quilt extends React.Component {
             height={triangleHeight}
             top={rowIndex * triangleHeight}
             left={(colIndex * triangleWidth) / 2}
-            backgroundImage={this.props.fabricList[this.props.quiltBlocks[shapeIndex]]}
+            backgroundImage={
+              this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
+            }
           />
         );
 
@@ -111,7 +113,9 @@ class Quilt extends React.Component {
             height={squareHeight}
             top={rowIndex * squareHeight}
             left={colIndex * squareWidth}
-            backgroundImage={this.props.fabricList[this.props.quiltBlocks[shapeIndex]]}
+            backgroundImage={
+              this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
+            }
           />
         );
 
@@ -158,13 +162,13 @@ class Quilt extends React.Component {
             points={hexagonPoints}
             width={hexagonWidth}
             height={hexagonHeight}
-            top={
-              (rowIndex * hexagonHeight) +
-              (offsetCol ? hexagonHeight / 2 : 0)}
-            left={
-              colIndex * internalTriangleShortSide * 3
+            top={rowIndex * hexagonHeight + (offsetCol ? hexagonHeight / 2 : 0)}
+            left={colIndex * internalTriangleShortSide * 3}
+            backgroundImage={
+              this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
             }
-            backgroundImage={this.props.fabricList[this.props.quiltBlocks[shapeIndex]]}
+            selected={shapeIndex === this.props.selectedBlockIndex}
+            onFabricBlockClick={this.props.onFabricBlockClick}
           />
         );
 

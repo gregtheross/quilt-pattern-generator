@@ -33,7 +33,6 @@ class QuiltForm extends React.Component {
   }
 
   render() {
-    // todo: change form inputs based on shape type selection (e.g., remove height for square)
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -100,13 +99,15 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
-        {/* todo: format it better so it's easier to read?  might not be necessary if I'm going to allow clicking on the blocks to swap them */}
+        {/* todo: show/hide only when you want to start with a saved quilt? */}
         <div>
           <label>
             Quilt Definition:
-            <textarea name="quiltBlocks"
+            <textarea
+              name="quiltBlocks"
               value={this.props.quiltBlocks}
-              onChange={this.handleChange}></textarea>
+              onChange={this.handleChange}
+            ></textarea>
           </label>
         </div>
         {/* todo: change to a regular button instead of submit */}

@@ -31,13 +31,14 @@ class App extends React.Component {
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3814/limes-pattern-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1377/koi-fish-carp-seamless-pattern-vector-medium.png"
       ],
-      quiltBlocks: []
+      quiltBlocks: [],
+      selectedBlockIndex: null
     };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onFormInputChange = this.onFormInputChange.bind(this);
+    this.onFabricBlockClick = this.onFabricBlockClick.bind(this);
   }
-
 
   randomizeFabricList() {
     // Generate initial array of fabricIds and then shuffle them.
@@ -59,17 +60,19 @@ class App extends React.Component {
       currentIndex -= 1;
 
       // And swap it with the current element.
-      temporaryValue = indexes[currentIndex];
-      indexes[currentIndex] = indexes[randomIndex];
-      indexes[randomIndex] = temporaryValue;
+      this.swapFabrics(indexes, currentIndex, randomIndex);
     }
 
     return indexes;
   }
 
+  swapFabrics(indexes, index1, index2) {
+    let temporaryValue = indexes[index1];
+    indexes[index1] = indexes[index2];
+    indexes[index2] = temporaryValue;
+  }
+
   // todo: change to a regular button instead of submit
-  // todo: figure out why the textarea only refreshes if randomizing is the first thing you do.
-  //       to reproduce, click on randomize button, then edit the quilt definition, click randomize again
   onFormSubmit() {
     this.setState({
       quiltBlocks: this.randomizeFabricList()
@@ -77,13 +80,30 @@ class App extends React.Component {
   }
 
   onFormInputChange(e) {
-    const value = e.target.name === "quiltBlocks" ? e.target.value.split(',')
-      : e.target.type === "checkbox" ? e.target.checked
+    const value =
+      e.target.name === "quiltBlocks"
+        ? e.target.value.split(",")
+        : e.target.type === "checkbox"
+        ? e.target.checked
         : e.target.value;
 
-    console.log(e.target.name + ': ' + value);
-
     this.setState({ [e.target.name]: value });
+  }
+
+  onFabricBlockClick(fabricId) {
+    if (this.state.selectedBlockIndex === null)
+      this.setState({ selectedBlockIndex: fabricId });
+    else if (this.state.selectedBlockIndex === fabricId)
+      this.setState({ selectedBlockIndex: null });
+    else {
+      let tmpQuiltBlocks = this.state.quiltBlocks;
+      this.swapFabrics(tmpQuiltBlocks, fabricId, this.state.selectedBlockIndex);
+
+      this.setState({
+        selectedBlockIndex: null,
+        quiltBlocks: tmpQuiltBlocks
+      });
+    }
   }
 
   render() {
@@ -109,6 +129,8 @@ class App extends React.Component {
           shapeHeight={this.state.shapeHeight}
           fabricList={this.state.fabricList}
           quiltBlocks={this.state.quiltBlocks}
+          onFabricBlockClick={this.onFabricBlockClick}
+          selectedBlockIndex={this.state.selectedBlockIndex}
         />
       </div>
     );
