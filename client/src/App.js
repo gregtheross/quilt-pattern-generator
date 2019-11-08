@@ -30,33 +30,94 @@ class App extends React.Component {
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3813/acorn-pattern-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3814/limes-pattern-vector-medium.png",
         "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1377/koi-fish-carp-seamless-pattern-vector-medium.png"
-      ]
+      ],
+      quiltBlocks: [],
+      selectedBlockIndex: null
     };
 
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onRandomizeClick = this.onRandomizeClick.bind(this);
+    this.onFormInputChange = this.onFormInputChange.bind(this);
+    this.onFabricBlockClick = this.onFabricBlockClick.bind(this);
   }
 
-  onFormSubmit(rows, cols, shapeType, shapeWidth, shapeHeight) {
+  randomizeFabricList() {
+    // Generate initial array of fabricIds and then shuffle them.
+    // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
+    // If we randomize the selection there is a high risk of having more fabric blocks than others
+    let indexes = [];
+    for (let i = 0; i < this.state.colCount * this.state.rowCount; i++) {
+      indexes.push(i % this.state.fabricList.length);
+    }
+
+    var currentIndex = indexes.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      this.swapFabrics(indexes, currentIndex, randomIndex);
+    }
+
+    return indexes;
+  }
+
+  swapFabrics(indexes, index1, index2) {
+    let temporaryValue = indexes[index1];
+    indexes[index1] = indexes[index2];
+    indexes[index2] = temporaryValue;
+  }
+
+  onRandomizeClick() {
     this.setState({
-      rowCount: rows,
-      colCount: cols,
-      selectedShapeType: shapeType,
-      shapeWidth: shapeWidth,
-      shapeHeight: shapeHeight
+      quiltBlocks: this.randomizeFabricList()
     });
+  }
+
+  onFormInputChange(e) {
+    const value =
+      e.target.name === "quiltBlocks"
+        ? e.target.value.split(",")
+        : e.target.type === "checkbox"
+          ? e.target.checked
+          : e.target.value;
+
+    this.setState({ [e.target.name]: value });
+  }
+
+  onFabricBlockClick(fabricId) {
+    if (this.state.selectedBlockIndex === null)
+      this.setState({ selectedBlockIndex: fabricId });
+    else if (this.state.selectedBlockIndex === fabricId)
+      this.setState({ selectedBlockIndex: null });
+    else {
+      let tmpQuiltBlocks = this.state.quiltBlocks;
+      this.swapFabrics(tmpQuiltBlocks, fabricId, this.state.selectedBlockIndex);
+
+      this.setState({
+        selectedBlockIndex: null,
+        quiltBlocks: tmpQuiltBlocks
+      });
+    }
   }
 
   render() {
     return (
       <div>
         <QuiltForm
-          rows={this.state.rowCount}
-          cols={this.state.colCount}
+          rowCount={this.state.rowCount}
+          colCount={this.state.colCount}
           shapeTypes={this.state.shapeTypes}
           selectedShapeType={this.state.selectedShapeType}
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
-          onFormSubmit={this.onFormSubmit}
+          quiltBlocks={this.state.quiltBlocks}
+          onRandomizeClick={this.onRandomizeClick}
+          onFormInputChange={this.onFormInputChange}
         />
 
         <Quilt
@@ -66,6 +127,9 @@ class App extends React.Component {
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
           fabricList={this.state.fabricList}
+          quiltBlocks={this.state.quiltBlocks}
+          onFabricBlockClick={this.onFabricBlockClick}
+          selectedBlockIndex={this.state.selectedBlockIndex}
         />
       </div>
     );

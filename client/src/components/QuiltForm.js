@@ -4,33 +4,16 @@ class QuiltForm extends React.Component {
   constructor(props) {
     super(props);
 
-    // todo: consider passing this up to the App and not using a state in this component
-    this.state = {
-      rows: props.rows,
-      cols: props.cols,
-      shapeType: props.selectedShapeType,
-      shapeWidth: props.shapeWidth,
-      shapeHeight: props.shapeHeight
-    };
-
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRandomizeClick = this.handleRandomizeClick.bind(this);
   }
 
   handleChange(e) {
-    // todo: consider passing this up to the App and not using a state in this component
-    this.setState({ [e.target.name]: e.target.value });
+    this.props.onFormInputChange(e);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.onFormSubmit(
-      this.state.rows,
-      this.state.cols,
-      this.state.shapeType,
-      this.state.shapeWidth,
-      this.state.shapeHeight
-    );
+  handleRandomizeClick(e) {
+    this.props.onRandomizeClick();
   }
 
   createOptions() {
@@ -48,16 +31,15 @@ class QuiltForm extends React.Component {
   }
 
   render() {
-    // todo: change form inputs based on shape type selection (e.g., remove height for square)
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
         <div>
           <label>
             Rows:
             <input
               type="text"
-              name="rows"
-              defaultValue={this.props.rows}
+              name="rowCount"
+              value={this.props.rowCount}
               onChange={this.handleChange}
             />
           </label>
@@ -67,8 +49,8 @@ class QuiltForm extends React.Component {
             Columns:
             <input
               type="text"
-              name="cols"
-              defaultValue={this.props.cols}
+              name="colCount"
+              value={this.props.colCount}
               onChange={this.handleChange}
             />
           </label>
@@ -77,8 +59,8 @@ class QuiltForm extends React.Component {
           <label>
             Shape Type:
             <select
-              name="shapeType"
-              defaultValue={this.props.selectedShapeType}
+              name="selectedShapeType"
+              value={this.props.selectedShapeType}
               onChange={this.handleChange}
             >
               {this.createOptions()}
@@ -91,7 +73,7 @@ class QuiltForm extends React.Component {
             <input
               type="text"
               name="shapeWidth"
-              defaultValue={this.props.shapeWidth}
+              value={this.props.shapeWidth}
               onChange={this.handleChange}
             />
           </label>
@@ -100,7 +82,7 @@ class QuiltForm extends React.Component {
           // todo: handle with a CSS class
           style={{
             visibility:
-              this.state.shapeType === "isosceles triangle"
+              this.props.selectedShapeType === "isosceles triangle"
                 ? "visible"
                 : "hidden"
           }}
@@ -110,15 +92,26 @@ class QuiltForm extends React.Component {
             <input
               type="text"
               name="shapeHeight"
-              defaultValue={this.props.shapeHeight}
+              value={this.props.shapeHeight}
               onChange={this.handleChange}
             />
           </label>
         </div>
+        {/* todo: show/hide only when you want to start with a saved quilt? */}
         <div>
-          <input type="submit" value="Create Quilt" />
+          <label>
+            Quilt Definition:
+            <textarea
+              name="quiltBlocks"
+              value={this.props.quiltBlocks}
+              onChange={this.handleChange}
+            ></textarea>
+          </label>
         </div>
-      </form>
+        <div>
+          <button onClick={this.handleRandomizeClick}>Randomize</button>
+        </div>
+      </div>
     );
   }
 }

@@ -1,12 +1,22 @@
 import React from "react";
 
 class FabricBlock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    this.props.onFabricBlockClick(this.props.id);
+  }
+
   render() {
     const style = {
       clipPath: "url(#" + this.props.id + ")",
       position: "absolute",
       top: this.props.top,
-      left: this.props.left
+      left: this.props.left,
+      opacity: this.props.selected ? ".25" : "1"
     };
 
     return (
@@ -16,6 +26,7 @@ class FabricBlock extends React.Component {
           src={this.props.backgroundImage}
           width={this.props.width}
           height={this.props.height}
+          onClick={this.handleClick}
         />
         <svg>
           <defs>
