@@ -5,17 +5,15 @@ class QuiltForm extends React.Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRandomizeClick = this.handleRandomizeClick.bind(this);
   }
 
   handleChange(e) {
     this.props.onFormInputChange(e);
   }
 
-  // todo: change to a regular button instead of submit
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.onFormSubmit();
+  handleRandomizeClick(e) {
+    this.props.onRandomizeClick();
   }
 
   createOptions() {
@@ -34,7 +32,7 @@ class QuiltForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
         <div>
           <label>
             Rows:
@@ -110,11 +108,10 @@ class QuiltForm extends React.Component {
             ></textarea>
           </label>
         </div>
-        {/* todo: change to a regular button instead of submit */}
         <div>
-          <input type="submit" value="Randomize Quilt" />
+          <button onClick={this.handleRandomizeClick}>Randomize</button>
         </div>
-      </form>
+      </div>
     );
   }
 }

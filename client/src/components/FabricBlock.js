@@ -6,7 +6,6 @@ class FabricBlock extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  // todo: change to a regular button instead of submit
   handleClick(e) {
     this.props.onFabricBlockClick(this.props.id);
   }

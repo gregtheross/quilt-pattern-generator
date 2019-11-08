@@ -35,7 +35,7 @@ class App extends React.Component {
       selectedBlockIndex: null
     };
 
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onRandomizeClick = this.onRandomizeClick.bind(this);
     this.onFormInputChange = this.onFormInputChange.bind(this);
     this.onFabricBlockClick = this.onFabricBlockClick.bind(this);
   }
@@ -72,8 +72,7 @@ class App extends React.Component {
     indexes[index2] = temporaryValue;
   }
 
-  // todo: change to a regular button instead of submit
-  onFormSubmit() {
+  onRandomizeClick() {
     this.setState({
       quiltBlocks: this.randomizeFabricList()
     });
@@ -84,8 +83,8 @@ class App extends React.Component {
       e.target.name === "quiltBlocks"
         ? e.target.value.split(",")
         : e.target.type === "checkbox"
-        ? e.target.checked
-        : e.target.value;
+          ? e.target.checked
+          : e.target.value;
 
     this.setState({ [e.target.name]: value });
   }
@@ -117,7 +116,7 @@ class App extends React.Component {
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
           quiltBlocks={this.state.quiltBlocks}
-          onFormSubmit={this.onFormSubmit}
+          onRandomizeClick={this.onRandomizeClick}
           onFormInputChange={this.onFormInputChange}
         />
 
