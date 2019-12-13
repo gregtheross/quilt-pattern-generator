@@ -1,5 +1,6 @@
 import React from "react";
 import FabricBlock from "./FabricBlock.js";
+import PropTypes from "prop-types";
 
 class Quilt extends React.Component {
   getFabricList() {
@@ -58,7 +59,7 @@ class Quilt extends React.Component {
     let trianglePointsDown = `0 0, ${triangleWidth /
       2} ${triangleHeight}, ${triangleWidth} 0`;
     let trianglePointsUp = `${triangleWidth /
-      2} 0, ${triangleWidth} ${triangleHeight}, 0 ${triangleHeight} `;
+      2} 0, ${triangleWidth} ${triangleHeight}, 0 ${triangleHeight}`;
 
     let shapeIndex = 0;
 
@@ -96,7 +97,7 @@ class Quilt extends React.Component {
     let squareWidth = this.props.shapeWidth;
     let squareHeight = this.props.shapeWidth;
 
-    let squarePoints = `0 0, ${squareWidth} 0, ${squareWidth} ${squareHeight}, 0 ${squareHeight} `;
+    let squarePoints = `0 0, ${squareWidth} 0, ${squareWidth} ${squareHeight}, 0 ${squareHeight}`;
 
     let shapeIndex = 0;
 
@@ -187,5 +188,17 @@ class Quilt extends React.Component {
     );
   }
 }
+
+Quilt.propTypes = {
+  shapeHeight: PropTypes.number.isRequired,
+  shapeWidth: PropTypes.number.isRequired,
+  rowCount: PropTypes.number.isRequired,
+  colCount: PropTypes.number.isRequired,
+  fabricList: PropTypes.array.isRequired,
+  selectedBlockIndex: PropTypes.number,
+  onFabricBlockClick: PropTypes.func.isRequired,
+  quiltBlocks: PropTypes.array.isRequired,
+  shapeType: PropTypes.string.isRequired
+};
 
 export default Quilt;
