@@ -40,6 +40,29 @@ class App extends React.Component {
     this.onFabricBlockClick = this.onFabricBlockClick.bind(this);
   }
 
+  componentDidMount() {
+    // todo: call something that gets initial state
+
+    this.callBackendAPI()
+      .then(res => {
+        console.log(res.express);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  // todo: remove POC method
+  callBackendAPI = async () => {
+    const response = await fetch("/express_backend");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body;
+  };
+
   randomizeFabricList() {
     // Generate initial array of fabricIds and then shuffle them.
     // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
@@ -83,8 +106,8 @@ class App extends React.Component {
       e.target.name === "quiltBlocks"
         ? e.target.value.split(",")
         : e.target.type === "checkbox"
-          ? e.target.checked
-          : e.target.value;
+        ? e.target.checked
+        : e.target.value;
 
     this.setState({ [e.target.name]: value });
   }
