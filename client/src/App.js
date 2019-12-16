@@ -10,12 +10,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    // todo: refactor selected shapeType to use id instead of text
-
     this.state = {
       rowCount: 8,
       colCount: 11,
-      selectedShapeType: "equilateral triangle",
+      selectedShapeType: 1,
       shapeTypes: [],
       shapeWidth: 80,
       shapeHeight: 100,
@@ -33,10 +31,6 @@ class App extends React.Component {
       quiltBlocks: [],
       selectedBlockIndex: null
     };
-
-    this.onRandomizeClick = this.onRandomizeClick.bind(this);
-    this.onFormInputChange = this.onFormInputChange.bind(this);
-    this.onFabricBlockClick = this.onFabricBlockClick.bind(this);
   }
 
   componentDidMount() {
@@ -82,24 +76,26 @@ class App extends React.Component {
     indexes[index2] = temporaryValue;
   }
 
-  onRandomizeClick() {
+  onRandomizeClick = () => {
     this.setState({
       quiltBlocks: this.randomizeFabricList()
     });
-  }
+  };
 
-  onFormInputChange(e) {
+  onFormInputChange = e => {
     const value =
       e.target.name === "quiltBlocks"
         ? e.target.value.split(",")
+        : e.target.name === "selectedShapeType"
+        ? parseInt(e.target.value, 10)
         : e.target.type === "checkbox"
         ? e.target.checked
         : e.target.value;
 
     this.setState({ [e.target.name]: value });
-  }
+  };
 
-  onFabricBlockClick(fabricId) {
+  onFabricBlockClick = fabricId => {
     if (this.state.selectedBlockIndex === null)
       this.setState({ selectedBlockIndex: fabricId });
     else if (this.state.selectedBlockIndex === fabricId)
@@ -113,7 +109,7 @@ class App extends React.Component {
         quiltBlocks: tmpQuiltBlocks
       });
     }
-  }
+  };
 
   render() {
     return (

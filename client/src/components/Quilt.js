@@ -33,13 +33,13 @@ class Quilt extends React.Component {
 
   createQuilt() {
     switch (this.props.shapeType) {
-      case "equilateral triangle":
+      case 1:
         return this.createTriangleQuilt(true);
-      case "isosceles triangle":
+      case 2:
         return this.createTriangleQuilt(false);
-      case "square":
+      case 3:
         return this.createSquareQuilt();
-      case "hexagon":
+      case 4:
         return this.createHexagonQuilt();
       default:
         return <div>Invalid Shape</div>;
@@ -198,7 +198,7 @@ Quilt.propTypes = {
   selectedBlockIndex: PropTypes.number,
   onFabricBlockClick: PropTypes.func.isRequired,
   quiltBlocks: PropTypes.array.isRequired,
-  shapeType: PropTypes.string.isRequired
+  shapeType: PropTypes.number.isRequired
 };
 
 export default Quilt;

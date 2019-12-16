@@ -11,7 +11,7 @@ function renderQuilt(args) {
   const defaultProps = {
     rowCount: 1,
     colCount: 1,
-    shapeType: "equilateral triangle",
+    shapeType: 1,
     shapeWidth: 100,
     shapeHeight: 100,
     fabricList: [],
@@ -37,7 +37,7 @@ it("100x100 equilateral triangle", () => {
 "square",
   it("80x100 isosceles triangle", () => {
     const wrapper = renderQuilt({
-      shapeType: "isosceles triangle",
+      shapeType: 2,
       shapeHeight: 80
     });
     // console.log(wrapper.debug());
@@ -47,7 +47,7 @@ it("100x100 equilateral triangle", () => {
   });
 
 it("100x100 square", () => {
-  const wrapper = renderQuilt({ shapeType: "square" });
+  const wrapper = renderQuilt({ shapeType: 3 });
   //   console.log(wrapper.debug());
   const expextedPolygon = <polygon points="0 0, 100 0, 100 100, 0 100" />;
 
@@ -55,7 +55,7 @@ it("100x100 square", () => {
 });
 
 it("100x100 hexagon", () => {
-  const wrapper = renderQuilt({ shapeType: "hexagon" });
+  const wrapper = renderQuilt({ shapeType: 4 });
   //   console.log(wrapper.debug());
   const expextedPolygon = (
     <polygon points="0 43.30127018922193, 25 0, 75 0, 100 43.30127018922193 75 86.60254037844386, 25 86.60254037844386" />

@@ -1,7 +1,5 @@
 import React from "react";
 
-// todo: refactor shapetypes to use id instead of text
-
 class QuiltForm extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +21,7 @@ class QuiltForm extends React.Component {
 
     this.props.shapeTypes.map(shapeType => {
       options.push(
-        <option value={shapeType.name} key={shapeType.id}>
+        <option value={shapeType.id} key={shapeType.id}>
           {shapeType.name}
         </option>
       );
@@ -84,9 +82,7 @@ class QuiltForm extends React.Component {
           // todo: handle with a CSS class
           style={{
             visibility:
-              this.props.selectedShapeType === "isosceles triangle"
-                ? "visible"
-                : "hidden"
+              this.props.selectedShapeType === 2 ? "visible" : "hidden"
           }}
         >
           <label>
