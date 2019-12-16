@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "run-p start:server start:client",
-    "start:server": "nodemon --exec node server.js",
-    "start:client": "cd client && npm start"
+    "start:server": "nodemon --exec  node --inspect server.js",
+    "start:client": "cd client && npm start",
+    "resetMockDb": "node ./serverData/createMockDb.js"
   },
   "repository": {
     "type": "git",

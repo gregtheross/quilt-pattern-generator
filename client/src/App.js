@@ -4,20 +4,19 @@ import "./App.css";
 import Quilt from "./components/Quilt.js";
 import QuiltForm from "./components/QuiltForm.js";
 
+import * as QuiltApi from "./api/quiltApi";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+    // todo: refactor selected shapeType to use id instead of text
+
     this.state = {
       rowCount: 8,
       colCount: 11,
-      selectedShapeType: "hexagon",
-      shapeTypes: [
-        "equilateral triangle",
-        "isosceles triangle",
-        "square",
-        "hexagon"
-      ],
+      selectedShapeType: "equilateral triangle",
+      shapeTypes: [],
       shapeWidth: 80,
       shapeHeight: 100,
       fabricList: [
@@ -41,27 +40,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // todo: call something that gets initial state
-
-    this.callBackendAPI()
-      .then(res => {
-        console.log(res.express);
+    // get the shape types from the server
+    QuiltApi.getShapeTypes()
+      .then(response => {
+        this.setState({ shapeTypes: response });
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.log(error);
       });
   }
-
-  // todo: remove POC method
-  callBackendAPI = async () => {
-    const response = await fetch("/express_backend");
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    return body;
-  };
 
   randomizeFabricList() {
     // Generate initial array of fabricIds and then shuffle them.

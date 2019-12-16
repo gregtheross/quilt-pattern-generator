@@ -1,5 +1,7 @@
 import React from "react";
 
+// todo: refactor shapetypes to use id instead of text
+
 class QuiltForm extends React.Component {
   constructor(props) {
     super(props);
@@ -19,10 +21,10 @@ class QuiltForm extends React.Component {
   createOptions() {
     let options = [];
 
-    this.props.shapeTypes.map((value, i) => {
+    this.props.shapeTypes.map(shapeType => {
       options.push(
-        <option value={value} key={i}>
-          {value}
+        <option value={shapeType.name} key={shapeType.id}>
+          {shapeType.name}
         </option>
       );
     });
