@@ -14,8 +14,8 @@ function renderQuilt(args) {
     shapeType: 1,
     shapeWidth: 100,
     shapeHeight: 100,
-    fabricList: [],
-    quiltBlocks: [],
+    fabricList: [{ id: 1, url: "" }],
+    quiltBlocks: [1],
     onFabricBlockClick: jest.fn()
   };
 
