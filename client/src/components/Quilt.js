@@ -26,8 +26,6 @@ class Quilt extends React.Component {
   }
 
   createTriangleQuilt(isEquilateral) {
-    // todo: consolidate some of the shared code with create[SHAPE]Quilt()
-
     let triangleWidth = this.props.shapeWidth;
     // if no height entered, use equilateral triangle calculation
     let triangleHeight = isEquilateral
@@ -76,8 +74,6 @@ class Quilt extends React.Component {
   }
 
   createSquareQuilt() {
-    // todo: consolidate some of the shared code with create[SHAPE]Quilt()
-
     let squareWidth = this.props.shapeWidth;
     let squareHeight = this.props.shapeWidth;
 
@@ -115,10 +111,7 @@ class Quilt extends React.Component {
     return svgShapes;
   }
 
-  // todo: add an option for rotating it 90 degrees
   createHexagonQuilt() {
-    // todo: consolidate some of the shared code with create[SHAPE]Quilt()
-
     // calculate some re-usable lengths broken up from the hexagon
     let centerlineWidth = this.props.shapeWidth;
     let heightOffCenter = (centerlineWidth / 4) * Math.sqrt(3);
@@ -127,7 +120,6 @@ class Quilt extends React.Component {
     let hexagonWidth = centerlineWidth;
     let hexagonHeight = heightOffCenter * 2;
 
-    // todo: calculate these differently based on the rotation
     let hexagonPoints =
       `0 ${heightOffCenter},` +
       ` ${internalTriangleShortSide} 0,` +
