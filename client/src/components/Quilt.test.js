@@ -34,17 +34,16 @@ it("100x100 equilateral triangle", () => {
   expect(wrapper.contains(expextedPolygon)).toEqual(true);
 });
 
-"square",
-  it("80x100 isosceles triangle", () => {
-    const wrapper = renderQuilt({
-      shapeType: 2,
-      shapeHeight: 80
-    });
-    // console.log(wrapper.debug());
-    const expextedPolygon = <polygon points="50 0, 100 80, 0 80" />;
-
-    expect(wrapper.contains(expextedPolygon)).toEqual(true);
+it("80x100 isosceles triangle", () => {
+  const wrapper = renderQuilt({
+    shapeType: 2,
+    shapeHeight: 80
   });
+  // console.log(wrapper.debug());
+  const expextedPolygon = <polygon points="50 0, 100 80, 0 80" />;
+
+  expect(wrapper.contains(expextedPolygon)).toEqual(true);
+});
 
 it("100x100 square", () => {
   const wrapper = renderQuilt({ shapeType: 3 });
