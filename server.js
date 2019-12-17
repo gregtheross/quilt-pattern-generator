@@ -10,3 +10,7 @@ app.listen(port, () => console.log(`Express Server listening on port ${port}`));
 app.get("/shape-types", (req, res) => {
   res.json(jsonDb.shapeTypes);
 });
+
+app.get("/fabrics", (req, res) => {
+  res.json(jsonDb.fabrics);
+});

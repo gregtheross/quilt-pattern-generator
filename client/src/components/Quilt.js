@@ -3,46 +3,25 @@ import FabricBlock from "./FabricBlock.js";
 import PropTypes from "prop-types";
 
 class Quilt extends React.Component {
-  getFabricList() {
-    // Generate initial array of fabricIds and then shuffle them.
-    // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
-    // If we randomize the selection there is a high risk of having more fabric blocks than others
-    let indexes = [];
-    for (let i = 0; i < this.props.colCount * this.props.rowCount; i++) {
-      indexes.push(i % this.props.fabricList.length);
-    }
-
-    var currentIndex = indexes.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = indexes[currentIndex];
-      indexes[currentIndex] = indexes[randomIndex];
-      indexes[randomIndex] = temporaryValue;
-    }
-
-    return indexes;
-  }
-
   createQuilt() {
-    switch (this.props.shapeType) {
-      case 1:
-        return this.createTriangleQuilt(true);
-      case 2:
-        return this.createTriangleQuilt(false);
-      case 3:
-        return this.createSquareQuilt();
-      case 4:
-        return this.createHexagonQuilt();
-      default:
-        return <div>Invalid Shape</div>;
+    if (
+      this.props.fabricList &&
+      this.props.quiltBlocks &&
+      this.props.fabricList.length > 0 &&
+      this.props.quiltBlocks.length > 0
+    ) {
+      switch (this.props.shapeType) {
+        case 1:
+          return this.createTriangleQuilt(true);
+        case 2:
+          return this.createTriangleQuilt(false);
+        case 3:
+          return this.createSquareQuilt();
+        case 4:
+          return this.createHexagonQuilt();
+        default:
+          return <div>Invalid Shape</div>;
+      }
     }
   }
 
@@ -69,6 +48,11 @@ class Quilt extends React.Component {
     for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
       isUp = rowIndex % 2 === 0;
       for (let colIndex = 0; colIndex < this.props.colCount; colIndex++) {
+        let currentFabric = this.props.fabricList.find(
+          // eslint-disable-next-line
+          fabric => fabric.id === this.props.quiltBlocks[shapeIndex]
+        );
+
         svgShapes.push(
           <FabricBlock
             id={shapeIndex}
@@ -78,9 +62,7 @@ class Quilt extends React.Component {
             height={triangleHeight}
             top={rowIndex * triangleHeight}
             left={(colIndex * triangleWidth) / 2}
-            backgroundImage={
-              this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
-            }
+            backgroundImage={currentFabric && currentFabric.url}
             selected={shapeIndex === this.props.selectedBlockIndex}
             onFabricBlockClick={this.props.onFabricBlockClick}
           />
@@ -107,6 +89,11 @@ class Quilt extends React.Component {
 
     for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
       for (let colIndex = 0; colIndex < this.props.colCount; colIndex++) {
+        let currentFabric = this.props.fabricList.find(
+          // eslint-disable-next-line
+          fabric => fabric.id === this.props.quiltBlocks[shapeIndex]
+        );
+
         svgShapes.push(
           <FabricBlock
             id={shapeIndex}
@@ -116,9 +103,7 @@ class Quilt extends React.Component {
             height={squareHeight}
             top={rowIndex * squareHeight}
             left={colIndex * squareWidth}
-            backgroundImage={
-              this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
-            }
+            backgroundImage={currentFabric && currentFabric.url}
             selected={shapeIndex === this.props.selectedBlockIndex}
             onFabricBlockClick={this.props.onFabricBlockClick}
           />
@@ -160,6 +145,11 @@ class Quilt extends React.Component {
       offsetCol = false;
 
       for (let colIndex = 0; colIndex < this.props.colCount; colIndex++) {
+        let currentFabric = this.props.fabricList.find(
+          // eslint-disable-next-line
+          fabric => fabric.id === this.props.quiltBlocks[shapeIndex]
+        );
+
         svgShapes.push(
           <FabricBlock
             id={shapeIndex}
@@ -169,9 +159,7 @@ class Quilt extends React.Component {
             height={hexagonHeight}
             top={rowIndex * hexagonHeight + (offsetCol ? hexagonHeight / 2 : 0)}
             left={colIndex * internalTriangleShortSide * 3}
-            backgroundImage={
-              this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
-            }
+            backgroundImage={currentFabric && currentFabric.url}
             selected={shapeIndex === this.props.selectedBlockIndex}
             onFabricBlockClick={this.props.onFabricBlockClick}
           />

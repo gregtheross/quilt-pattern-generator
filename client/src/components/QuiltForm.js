@@ -20,6 +20,7 @@ class QuiltForm extends React.Component {
     let options = [];
 
     this.props.shapeTypes.map(shapeType => {
+      // todo: refactor to return () instead of pushing to options
       options.push(
         <option value={shapeType.id} key={shapeType.id}>
           {shapeType.name}
