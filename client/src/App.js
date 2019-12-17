@@ -37,7 +37,6 @@ class App extends React.Component {
     QuiltApi.getFabrics()
       .then(response => {
         this.setState({ fabricList: response });
-        console.log(this.state.fabricList);
       })
       .catch(error => {
         console.log(error);
@@ -82,7 +81,6 @@ class App extends React.Component {
   };
 
   onFormInputChange = e => {
-    debugger;
     const value =
       e.target.name === "quiltBlocks"
         ? e.target.value.split(",").map(x => {
@@ -98,7 +96,6 @@ class App extends React.Component {
   };
 
   onFabricBlockClick = fabricId => {
-    // debugger;
     if (this.state.selectedBlockIndex === null)
       this.setState({ selectedBlockIndex: fabricId });
     else if (this.state.selectedBlockIndex === fabricId)
