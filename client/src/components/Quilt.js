@@ -81,6 +81,8 @@ class Quilt extends React.Component {
             backgroundImage={
               this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
             }
+            selected={shapeIndex === this.props.selectedBlockIndex}
+            onFabricBlockClick={this.props.onFabricBlockClick}
           />
         );
 
@@ -117,6 +119,8 @@ class Quilt extends React.Component {
             backgroundImage={
               this.props.fabricList[this.props.quiltBlocks[shapeIndex]]
             }
+            selected={shapeIndex === this.props.selectedBlockIndex}
+            onFabricBlockClick={this.props.onFabricBlockClick}
           />
         );
 

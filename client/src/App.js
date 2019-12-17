@@ -54,7 +54,6 @@ class App extends React.Component {
     }
 
     var currentIndex = indexes.length,
-      temporaryValue,
       randomIndex;
 
     // While there remain elements to shuffle...

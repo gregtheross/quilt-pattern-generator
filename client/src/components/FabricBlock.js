@@ -1,14 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class FabricBlock extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
-  handleClick(e) {
+  handleClick = e => {
     this.props.onFabricBlockClick(this.props.id);
-  }
+  };
 
   render() {
     const style = {
@@ -22,6 +22,7 @@ class FabricBlock extends React.Component {
     return (
       <div>
         <img
+          alt={`tile ${this.props.id}`}
           style={style}
           src={this.props.backgroundImage}
           width={this.props.width}
@@ -39,5 +40,15 @@ class FabricBlock extends React.Component {
     );
   }
 }
+
+FabricBlock.propTypes = {
+  backgroundImage: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+  points: PropTypes.string.isRequired,
+  onFabricBlockClick: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired
+};
 
 export default FabricBlock;
