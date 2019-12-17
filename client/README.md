@@ -67,14 +67,13 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-
-
-
-
 ## TODO:
 
 - 404
+- route with homepage (manage fabrics, manage projects)
 - upload fabric pictures
+- load/save project (fabricList, quiltBlocks, dimensions, etc.)
+- calculate purchase list
 - styles (research "styled-components")
 - Add scale and total dimension estimates
 - Add cut-off border around quilt
