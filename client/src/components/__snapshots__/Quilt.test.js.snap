@@ -1,0 +1,501 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`80x100 isosceles triangle 1`] = `
+<div>
+  <div
+    className="svg-quilt"
+  >
+    <div>
+      <img
+        alt="tile 0"
+        height={80}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#0)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={0}
+          >
+            <polygon
+              points="50 0, 100 80, 0 80"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 1"
+        height={80}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#1)",
+            "left": 50,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={1}
+          >
+            <polygon
+              points="0 0, 50 80, 100 0"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 2"
+        height={80}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#2)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 80,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={2}
+          >
+            <polygon
+              points="0 0, 50 80, 100 0"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 3"
+        height={80}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#3)",
+            "left": 50,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 80,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={3}
+          >
+            <polygon
+              points="50 0, 100 80, 0 80"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`100x100 equilateral triangle 1`] = `
+<div>
+  <div
+    className="svg-quilt"
+  >
+    <div>
+      <img
+        alt="tile 0"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#0)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={0}
+          >
+            <polygon
+              points="50 0, 100 86.60254037844386, 0 86.60254037844386"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 1"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#1)",
+            "left": 50,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={1}
+          >
+            <polygon
+              points="0 0, 50 86.60254037844386, 100 0"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 2"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#2)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 86.60254037844386,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={2}
+          >
+            <polygon
+              points="0 0, 50 86.60254037844386, 100 0"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 3"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#3)",
+            "left": 50,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 86.60254037844386,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={3}
+          >
+            <polygon
+              points="50 0, 100 86.60254037844386, 0 86.60254037844386"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`100x100 hexagon 1`] = `
+<div>
+  <div
+    className="svg-quilt"
+  >
+    <div>
+      <img
+        alt="tile 0"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#0)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={0}
+          >
+            <polygon
+              points="0 43.30127018922193, 25 0, 75 0, 100 43.30127018922193 75 86.60254037844386, 25 86.60254037844386"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 1"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#1)",
+            "left": 75,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 43.30127018922193,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={1}
+          >
+            <polygon
+              points="0 43.30127018922193, 25 0, 75 0, 100 43.30127018922193 75 86.60254037844386, 25 86.60254037844386"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 2"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#2)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 86.60254037844386,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={2}
+          >
+            <polygon
+              points="0 43.30127018922193, 25 0, 75 0, 100 43.30127018922193 75 86.60254037844386, 25 86.60254037844386"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 3"
+        height={86.60254037844386}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#3)",
+            "left": 75,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 129.9038105676658,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={3}
+          >
+            <polygon
+              points="0 43.30127018922193, 25 0, 75 0, 100 43.30127018922193 75 86.60254037844386, 25 86.60254037844386"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`100x100 square 1`] = `
+<div>
+  <div
+    className="svg-quilt"
+  >
+    <div>
+      <img
+        alt="tile 0"
+        height={100}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#0)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={0}
+          >
+            <polygon
+              points="0 0, 100 0, 100 100, 0 100"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 1"
+        height={100}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#1)",
+            "left": 100,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 0,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={1}
+          >
+            <polygon
+              points="0 0, 100 0, 100 100, 0 100"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 2"
+        height={100}
+        onClick={[Function]}
+        src="2.jpg"
+        style={
+          Object {
+            "clipPath": "url(#2)",
+            "left": 0,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 100,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={2}
+          >
+            <polygon
+              points="0 0, 100 0, 100 100, 0 100"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div>
+      <img
+        alt="tile 3"
+        height={100}
+        onClick={[Function]}
+        src="1.jpg"
+        style={
+          Object {
+            "clipPath": "url(#3)",
+            "left": 100,
+            "opacity": "1",
+            "position": "absolute",
+            "top": 100,
+          }
+        }
+        width={100}
+      />
+      <svg>
+        <defs>
+          <clipPath
+            id={3}
+          >
+            <polygon
+              points="0 0, 100 0, 100 100, 0 100"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>
+`;

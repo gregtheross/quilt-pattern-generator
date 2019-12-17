@@ -19,10 +19,11 @@ class QuiltForm extends React.Component {
   createOptions() {
     let options = [];
 
-    this.props.shapeTypes.map((value, i) => {
+    this.props.shapeTypes.map(shapeType => {
+      // todo: refactor to return () instead of pushing to options
       options.push(
-        <option value={value} key={i}>
-          {value}
+        <option value={shapeType.id} key={shapeType.id}>
+          {shapeType.name}
         </option>
       );
     });
@@ -82,9 +83,7 @@ class QuiltForm extends React.Component {
           // todo: handle with a CSS class
           style={{
             visibility:
-              this.props.selectedShapeType === "isosceles triangle"
-                ? "visible"
-                : "hidden"
+              this.props.selectedShapeType === 2 ? "visible" : "hidden"
           }}
         >
           <label>

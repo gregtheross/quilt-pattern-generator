@@ -4,6 +4,8 @@ import "./App.css";
 import Quilt from "./components/Quilt.js";
 import QuiltForm from "./components/QuiltForm.js";
 
+import * as QuiltApi from "./api/QuiltApi";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,33 +13,34 @@ class App extends React.Component {
     this.state = {
       rowCount: 8,
       colCount: 11,
-      selectedShapeType: "hexagon",
-      shapeTypes: [
-        "equilateral triangle",
-        "isosceles triangle",
-        "square",
-        "hexagon"
-      ],
+      selectedShapeType: 1,
+      shapeTypes: [],
       shapeWidth: 80,
       shapeHeight: 100,
-      fabricList: [
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1935/floral-background-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1409/abstract-pebble-seamless-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1416/abstract-waves-seamless-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3815/tomatos-and-cucumbers-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1845/snowflakes-in-red-and-white-squares-seamless-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/2007/coffee-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3813/acorn-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/3814/limes-pattern-vector-medium.png",
-        "https://creazilla-store.fra1.digitaloceanspaces.com/vectors/1377/koi-fish-carp-seamless-pattern-vector-medium.png"
-      ],
+      fabricList: [],
       quiltBlocks: [],
       selectedBlockIndex: null
     };
+  }
 
-    this.onRandomizeClick = this.onRandomizeClick.bind(this);
-    this.onFormInputChange = this.onFormInputChange.bind(this);
-    this.onFabricBlockClick = this.onFabricBlockClick.bind(this);
+  componentDidMount() {
+    // get the shape types from the server
+    QuiltApi.getShapeTypes()
+      .then(response => {
+        this.setState({ shapeTypes: response });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    // get the fabrics
+    QuiltApi.getFabrics()
+      .then(response => {
+        this.setState({ fabricList: response });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   randomizeFabricList() {
@@ -46,11 +49,10 @@ class App extends React.Component {
     // If we randomize the selection there is a high risk of having more fabric blocks than others
     let indexes = [];
     for (let i = 0; i < this.state.colCount * this.state.rowCount; i++) {
-      indexes.push(i % this.state.fabricList.length);
+      indexes.push(this.state.fabricList[i % this.state.fabricList.length].id);
     }
 
     var currentIndex = indexes.length,
-      temporaryValue,
       randomIndex;
 
     // While there remain elements to shuffle...
@@ -72,24 +74,28 @@ class App extends React.Component {
     indexes[index2] = temporaryValue;
   }
 
-  onRandomizeClick() {
+  onRandomizeClick = () => {
     this.setState({
       quiltBlocks: this.randomizeFabricList()
     });
-  }
+  };
 
-  onFormInputChange(e) {
+  onFormInputChange = e => {
     const value =
       e.target.name === "quiltBlocks"
-        ? e.target.value.split(",")
+        ? e.target.value.split(",").map(x => {
+            return parseInt(x, 10);
+          })
+        : e.target.name === "selectedShapeType"
+        ? parseInt(e.target.value, 10)
         : e.target.type === "checkbox"
-          ? e.target.checked
-          : e.target.value;
+        ? e.target.checked
+        : e.target.value;
 
     this.setState({ [e.target.name]: value });
-  }
+  };
 
-  onFabricBlockClick(fabricId) {
+  onFabricBlockClick = fabricId => {
     if (this.state.selectedBlockIndex === null)
       this.setState({ selectedBlockIndex: fabricId });
     else if (this.state.selectedBlockIndex === fabricId)
@@ -103,7 +109,7 @@ class App extends React.Component {
         quiltBlocks: tmpQuiltBlocks
       });
     }
-  }
+  };
 
   render() {
     return (
