@@ -1,20 +1,18 @@
 import React from "react";
+import FabricList from "./FabricList";
 
 class QuiltForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleRandomizeClick = this.handleRandomizeClick.bind(this);
-  }
-
-  handleChange(e) {
+  handleChange = e => {
     this.props.onFormInputChange(e);
-  }
+  };
 
-  handleRandomizeClick(e) {
+  handleRandomizeClick = e => {
     this.props.onRandomizeClick();
-  }
+  };
+
+  handleSaveProjectClick = e => {
+    this.props.onSaveProjectClick();
+  };
 
   createOptions() {
     let options = [];
@@ -34,6 +32,17 @@ class QuiltForm extends React.Component {
   render() {
     return (
       <div>
+        <div>
+          <label>
+            Project Name:
+            <input
+              type="text"
+              name="projectName"
+              value={this.props.projectName}
+              onChange={this.handleChange}
+            />
+          </label>
+        </div>
         <div>
           <label>
             Rows:
@@ -97,7 +106,19 @@ class QuiltForm extends React.Component {
           </label>
         </div>
         {/* todo: add checkboxes to let the user select fabrics from list of all available fabrics */}
-        {/* todo: show/hide only when you want to start with a saved quilt? */}
+        <div>
+          <label>
+            Selected Fabrics:
+            <FabricList
+              selectedFabricIds={this.props.selectedFabrics}
+              availableFabrics={this.props.availableFabrics}
+              onSelectFabricClick={this.props.onSelectFabricClick}
+            />
+            {/* <FabricList fabricIds={[1, 2]} /> */}
+          </label>
+        </div>
+
+        {/* todo: remove */}
         <div>
           <label>
             Quilt Definition:
@@ -110,6 +131,9 @@ class QuiltForm extends React.Component {
         </div>
         <div>
           <button onClick={this.handleRandomizeClick}>Randomize</button>
+        </div>
+        <div>
+          <button onClick={this.handleSaveProjectClick}>SaveProject</button>
         </div>
       </div>
     );

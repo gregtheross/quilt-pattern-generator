@@ -15,6 +15,7 @@ class Project extends React.Component {
     // set a default state when creating a new quilt
     this.state = {
       projectId: 0,
+      projectName: "",
       rowCount: 8,
       colCount: 11,
       selectedShapeType: 1,
@@ -30,7 +31,6 @@ class Project extends React.Component {
 
   componentDidMount() {
     const projectId = this.props.match.params.id;
-    debugger;
 
     if (projectId) {
       // get the project matching this id
@@ -38,6 +38,7 @@ class Project extends React.Component {
         .then(response => {
           this.setState({
             projectId: response.id,
+            projectName: response.name,
             rowCount: response.quiltRows,
             colCount: response.quiltColumns,
             selectedShapeType: response.quiltShapeType,
@@ -75,14 +76,14 @@ class Project extends React.Component {
   }
 
   randomizeFabricList() {
-    // todo: refactor to use selectedFabrics
-
     // Generate initial array of fabricIds and then shuffle them.
     // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
     // If we randomize the selection there is a high risk of having more fabric blocks than others
     let indexes = [];
     for (let i = 0; i < this.state.colCount * this.state.rowCount; i++) {
-      indexes.push(this.state.fabricList[i % this.state.fabricList.length].id);
+      indexes.push(
+        this.state.selectedFabrics[i % this.state.selectedFabrics.length]
+      );
     }
 
     var currentIndex = indexes.length,
@@ -111,6 +112,14 @@ class Project extends React.Component {
     this.setState({
       quiltBlocks: this.randomizeFabricList()
     });
+  };
+
+  onSaveProjectClick = () => {
+    // todo: implement
+    alert("not implemented");
+    // this.setState({
+    //   quiltBlocks: this.randomizeFabricList()
+    // });
   };
 
   onFormInputChange = e => {
@@ -144,19 +153,39 @@ class Project extends React.Component {
     }
   };
 
+  onSelectFabricClick = fabricId => {
+    let tmpSelectedFabrics = this.state.selectedFabrics.slice();
+
+    if (tmpSelectedFabrics.includes(fabricId)) {
+      this.setState({
+        selectedFabrics: tmpSelectedFabrics.filter(x => x !== fabricId).slice()
+      });
+    } else {
+      tmpSelectedFabrics.push(fabricId);
+      this.setState({
+        selectedFabrics: tmpSelectedFabrics
+      });
+    }
+  };
+
   render() {
     return this.state.projectId !== undefined ? (
       <div>
         <QuiltForm
+          projectName={this.state.projectName}
           rowCount={this.state.rowCount}
           colCount={this.state.colCount}
           shapeTypes={this.state.shapeTypes}
           selectedShapeType={this.state.selectedShapeType}
           shapeWidth={this.state.shapeWidth}
           shapeHeight={this.state.shapeHeight}
+          availableFabrics={this.state.fabricList}
+          selectedFabrics={this.state.selectedFabrics}
           quiltBlocks={this.state.quiltBlocks}
           onRandomizeClick={this.onRandomizeClick}
           onFormInputChange={this.onFormInputChange}
+          onSaveProjectClick={this.onSaveProjectClick}
+          onSelectFabricClick={this.onSelectFabricClick}
         />
 
         <Quilt

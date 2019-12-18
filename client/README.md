@@ -70,10 +70,11 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ## TODO:
 
 - 404
-- route with homepage (manage fabrics, manage projects)
+- route with homepage (manage fabrics)
 - upload fabric pictures
 - load/save project (fabricList, quiltBlocks, dimensions, etc.)
 - calculate purchase list
 - styles (research "styled-components")
 - Add scale and total dimension estimates
 - Add cut-off border around quilt
+- Create a new print quilt page and link it from the project and/or projects list page
