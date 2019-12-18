@@ -14,3 +14,7 @@ app.get("/shape-types", (req, res) => {
 app.get("/fabrics", (req, res) => {
   res.json(jsonDb.fabrics);
 });
+
+app.get("/projects", (req, res) => {
+  res.json(jsonDb.projects);
+});
