@@ -40,8 +40,10 @@ class ProjectsPage extends React.Component {
         ) : this.state.projectsList && this.state.projectsList.length > 0 ? (
           <table>
             <tr>
-              <th>Project Id</th>
-              <th>Project Name</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Shape</th>
+              <th>Dimensions</th>
             </tr>
             {this.state.projectsList.map(project => {
               return (
@@ -52,6 +54,8 @@ class ProjectsPage extends React.Component {
                       {project.name}
                     </NavLink>
                   </td>
+                  <td>{project.shapeType}</td>
+                  <td>{project.dimensions}</td>
                 </tr>
               );
             })}

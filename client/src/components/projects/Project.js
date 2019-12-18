@@ -1,23 +1,27 @@
 import React from "react";
 
-import Quilt from "./Quilt.js";
-import QuiltForm from "./QuiltForm.js";
+import Quilt from "../quilts/Quilt.js";
+import QuiltForm from "../quilts/QuiltForm.js";
 
+import * as ProjectApi from "../../api/ProjectApi";
 import * as QuiltApi from "../../api/QuiltApi";
 
 // todo: if this is editing a project, show the form.  otherwise ONLY show the quilt
 
-class QuiltContainer extends React.Component {
+class Project extends React.Component {
   constructor(props) {
     super(props);
 
+    // set a default state when creating a new quilt
     this.state = {
+      projectId: 0,
       rowCount: 8,
       colCount: 11,
       selectedShapeType: 1,
       shapeTypes: [],
       shapeWidth: 80,
       shapeHeight: 100,
+      selectedFabrics: [],
       fabricList: [],
       quiltBlocks: [],
       selectedBlockIndex: null
@@ -25,6 +29,32 @@ class QuiltContainer extends React.Component {
   }
 
   componentDidMount() {
+    const projectId = this.props.match.params.id;
+    debugger;
+
+    if (projectId) {
+      // get the project matching this id
+      ProjectApi.getProject(projectId)
+        .then(response => {
+          this.setState({
+            projectId: response.id,
+            rowCount: response.quiltRows,
+            colCount: response.quiltColumns,
+            selectedShapeType: response.quiltShapeType,
+            shapeWidth: response.quiltShapeWidth,
+            shapeHeight: response.quiltShapeHeight,
+            selectedFabrics: response.quiltFabrics,
+            quiltBlocks: response.quiltBlocks
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({ projectId: undefined });
+        });
+    } else {
+      // use default state
+    }
+
     // get the shape types from the server
     QuiltApi.getShapeTypes()
       .then(response => {
@@ -45,6 +75,8 @@ class QuiltContainer extends React.Component {
   }
 
   randomizeFabricList() {
+    // todo: refactor to use selectedFabrics
+
     // Generate initial array of fabricIds and then shuffle them.
     // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
     // If we randomize the selection there is a high risk of having more fabric blocks than others
@@ -113,7 +145,7 @@ class QuiltContainer extends React.Component {
   };
 
   render() {
-    return (
+    return this.state.projectId !== undefined ? (
       <div>
         <QuiltForm
           rowCount={this.state.rowCount}
@@ -139,8 +171,10 @@ class QuiltContainer extends React.Component {
           selectedBlockIndex={this.state.selectedBlockIndex}
         />
       </div>
+    ) : (
+      <p>project id was invalid</p>
     );
   }
 }
 
-export default QuiltContainer;
+export default Project;

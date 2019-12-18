@@ -5,3 +5,9 @@ export function getProjects() {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getProject(id) {
+  return fetch(`/projects/${id}`)
+    .then(handleResponse)
+    .catch(handleError);
+}

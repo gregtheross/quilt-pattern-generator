@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 import { Route, Switch, NavLink } from "react-router-dom";
 import HomePage from "./components/home/HomePage";
-import QuiltContainer from "./components/quilts/QuiltContainer";
 import ProjectsPage from "./components/projects/ProjectsPage";
+import Project from "./components/projects/Project";
 
 import PageNotFound from "./PageNotFound";
 
@@ -15,13 +15,12 @@ class App extends React.Component {
           <NavLink to="/">Home</NavLink>
           {" | "}
           <NavLink to="/projects">Projects</NavLink>
-          {" | "}
-          <NavLink to="/quilt">Quilt</NavLink>
         </nav>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/projects" component={ProjectsPage} />
-          <Route exact path="/quilt" component={QuiltContainer} />
+          <Route exact path="/project/:id" component={Project} />
+          <Route exact path="/project" component={Project} />
           <Route component={PageNotFound} />
         </Switch>
       </>

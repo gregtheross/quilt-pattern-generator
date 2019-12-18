@@ -96,6 +96,7 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
+        {/* todo: add checkboxes to let the user select fabrics from list of all available fabrics */}
         {/* todo: show/hide only when you want to start with a saved quilt? */}
         <div>
           <label>
