@@ -1,8 +1,12 @@
 const jsonDb = require("./serverData/db.json");
 
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 3001;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Express Server listening on port ${port}`));
@@ -33,4 +37,20 @@ app.get("/projects", (req, res) => {
   );
 });
 
-// todo: POST save-project
+function validateProject(project) {
+  // todo: implement validation
+  // return "validation error";
+  return undefined;
+}
+
+app.post("/projects", function(req, res) {
+  const error = validateProject(req.body);
+
+  if (error) {
+    res.status(400).send(error);
+  } else {
+    // todo: generate next sequential id if id = 0.  In a real app we'd let the DB do this or generate a guid
+    // todo: add/save project to jsonDb
+    return res.send({ message: "Project saved successfully" });
+  }
+});

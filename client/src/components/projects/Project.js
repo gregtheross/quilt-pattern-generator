@@ -115,11 +115,28 @@ class Project extends React.Component {
   };
 
   onSaveProjectClick = () => {
-    // todo: implement
-    alert("not implemented");
-    // this.setState({
-    //   quiltBlocks: this.randomizeFabricList()
-    // });
+    // todo: disable inputs until saving is complete
+
+    // save the project
+    ProjectApi.saveProject({
+      id: this.state.projectId,
+      name: this.state.projectName,
+      quiltFabrics: this.state.selectedFabrics,
+      quiltRows: this.state.rowCount,
+      quiltColumns: this.state.colCount,
+      quiltShapeType: this.state.selectedShapeType,
+      quiltShapeWidth: this.state.shapeWidth,
+      quiltShapeHeight: this.state.shapeHeight,
+      quiltBlocks: this.state.quiltBlocks
+    })
+      .then(response => {
+        console.log(response.message);
+        if (this.state.projectId === 0) this.props.history.push("/projects");
+        else alert("save successful");
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   onFormInputChange = e => {
