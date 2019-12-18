@@ -24,14 +24,11 @@
 
 /**** end create-react-app stuff ****/
 
-
 /**** layout ****/
 
-
-
-
 /**** SVG stuff ****/
-.svg-quilt {
+.svg-quilt,
+.available-fabrics {
   position: relative;
+  overflow: hidden;
 }
-

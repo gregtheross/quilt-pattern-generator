@@ -1,25 +1,36 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import FabricBlock from "./FabricBlock";
 
 class FabricList extends Component {
   render() {
+    const fabricSize = 50;
+    const fabricListColumns = 4;
+
     return this.props.availableFabrics && this.props.selectedFabricIds ? (
-      <div>
-        {this.props.availableFabrics.map(fabric => {
+      <div
+        className="available-fabrics"
+        style={{
+          height:
+            Math.ceil(this.props.availableFabrics.length / fabricListColumns) *
+            fabricSize
+        }}
+      >
+        {this.props.availableFabrics.map((fabric, index) => {
           return (
-            <div
+            <FabricBlock
               key={fabric.id}
-              style={{
-                fontWeight: this.props.selectedFabricIds.find(
-                  sfid => sfid === fabric.id
-                )
-                  ? "bold"
-                  : ""
-              }}
-              onClick={() => this.props.onSelectFabricClick(fabric.id)}
-            >
-              {fabric.id}
-            </div>
+              backgroundImage={fabric.url}
+              width={fabricSize}
+              height={fabricSize}
+              top={Math.floor(index / fabricListColumns) * fabricSize}
+              left={(index % fabricListColumns) * fabricSize}
+              id={fabric.id}
+              points={`0 0, ${fabricSize} 0, ${fabricSize} ${fabricSize}, 0 ${fabricSize}`}
+              onFabricBlockClick={this.props.onSelectFabricClick}
+              selected={this.props.selectedFabricIds.includes(fabric.id)}
+              clipPathPrefix="available-fabrics"
+            />
           );
         })}
       </div>

@@ -154,8 +154,19 @@ class Project extends React.Component {
   };
 
   onSelectFabricClick = fabricId => {
-    let tmpSelectedFabrics = this.state.selectedFabrics.slice();
+    // First, clean out any fabricIds that happen to not exist.
+    //    bad state caused by a list of selected fabrics being saved and then a fabric getting deleted
+    //    this wouldn't happen in a real app with good database referential integrity so we'll just
+    //    do a quick culling here
+    // An alternative method would be to validate during load after both selectedFabrics and fabricList
+    //    are populated
+    let tmpSelectedFabrics = this.state.fabricList
+      .filter(x => this.state.selectedFabrics.includes(x.id))
+      .map(x => {
+        return x.id;
+      });
 
+    // remove/add the clicked fabricId from the temporary selected fabrics list and update state
     if (tmpSelectedFabrics.includes(fabricId)) {
       this.setState({
         selectedFabrics: tmpSelectedFabrics.filter(x => x !== fabricId).slice()
