@@ -135,8 +135,7 @@ class Project extends React.Component {
         else toast.success("project updated successfully");
       })
       .catch(error => {
-        toast.success("error updating project");
-        console.log(error);
+        toast.error(error.message);
       });
   };
 

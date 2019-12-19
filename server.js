@@ -61,9 +61,10 @@ app.get("/projects", (req, res) => {
 });
 
 function validateProject(project) {
-  // todo: implement validation
-  // return "validation error";
-  return undefined;
+  // client-side validation is actually best.  However, name is the only one that would actually break anything.
+  // other fields simply cause the quilt from displaying anything
+  if (!project.name) return "name is required";
+  return "";
 }
 
 app.post("/projects", function(req, res) {
