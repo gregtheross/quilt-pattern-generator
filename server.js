@@ -18,7 +18,7 @@ app.listen(port, () => console.log(`Express Server listening on port ${port}`));
 function saveJsonDb() {
   // yeah...not ideal for a real world app
   fs.writeFile("./serverData/db.json", JSON.stringify(jsonDb), function(err) {
-    err ? console.log(err) : console.log("Error saving db.json");
+    err ? console.log(err) : console.log("db.json updated");
   });
 }
 

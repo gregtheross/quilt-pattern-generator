@@ -131,11 +131,11 @@ class Project extends React.Component {
       quiltBlocks: this.state.quiltBlocks
     })
       .then(response => {
-        console.log(response.message);
         if (this.state.projectId === 0) this.props.history.push("/projects");
         else toast.success("project updated successfully");
       })
       .catch(error => {
+        toast.success("error updating project");
         console.log(error);
       });
   };

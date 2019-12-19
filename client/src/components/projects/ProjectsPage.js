@@ -26,6 +26,7 @@ class ProjectsPage extends React.Component {
         this.setState({ projectsList: response, loading: false });
       })
       .catch(error => {
+        toast.error("error fetching projects");
         console.log(error);
         this.setState({ loading: false });
       });
@@ -49,7 +50,7 @@ class ProjectsPage extends React.Component {
         this.loadProjects();
       })
       .catch(error => {
-        console.log("an error occurred while deleting project");
+        toast.error("an error occurred while deleting project");
       });
     this.setState({
       showDeleteConfirmationModal: false,
