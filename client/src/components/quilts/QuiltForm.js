@@ -89,7 +89,6 @@ class QuiltForm extends React.Component {
           </label>
         </div>
         <div
-          // todo: handle with a CSS class
           style={{
             visibility:
               this.props.selectedShapeType === 2 ? "visible" : "hidden"
@@ -105,7 +104,6 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
-        {/* todo: add checkboxes to let the user select fabrics from list of all available fabrics */}
         <div>
           <label>
             Selected Fabrics:
@@ -114,26 +112,18 @@ class QuiltForm extends React.Component {
               availableFabrics={this.props.availableFabrics}
               onSelectFabricClick={this.props.onSelectFabricClick}
             />
-            {/* <FabricList fabricIds={[1, 2]} /> */}
-          </label>
-        </div>
-
-        {/* todo: remove */}
-        <div>
-          <label>
-            Quilt Definition:
-            <textarea
-              name="quiltBlocks"
-              value={this.props.quiltBlocks}
-              onChange={this.handleChange}
-            ></textarea>
           </label>
         </div>
         <div>
           <button onClick={this.handleRandomizeClick}>Randomize</button>
         </div>
         <div>
-          <button onClick={this.handleSaveProjectClick}>SaveProject</button>
+          <button
+            onClick={this.handleSaveProjectClick}
+            disabled={this.props.busy}
+          >
+            SaveProject
+          </button>
         </div>
       </div>
     );

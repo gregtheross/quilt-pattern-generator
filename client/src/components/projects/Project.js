@@ -26,7 +26,8 @@ class Project extends React.Component {
       selectedFabrics: [],
       fabricList: [],
       quiltBlocks: [],
-      selectedBlockIndex: null
+      selectedBlockIndex: null,
+      busy: true
     };
   }
 
@@ -46,12 +47,13 @@ class Project extends React.Component {
             shapeWidth: response.quiltShapeWidth,
             shapeHeight: response.quiltShapeHeight,
             selectedFabrics: response.quiltFabrics,
-            quiltBlocks: response.quiltBlocks
+            quiltBlocks: response.quiltBlocks,
+            busy: false
           });
         })
         .catch(error => {
           console.log(error);
-          this.setState({ projectId: undefined });
+          this.setState({ projectId: undefined, busy: false });
         });
     } else {
       // use default state
@@ -116,7 +118,7 @@ class Project extends React.Component {
   };
 
   onSaveProjectClick = () => {
-    // todo: disable inputs until saving is complete
+    this.setState({ busy: true });
 
     // save the project
     ProjectApi.saveProject({
@@ -133,9 +135,11 @@ class Project extends React.Component {
       .then(response => {
         if (this.state.projectId === 0) this.props.history.push("/projects");
         else toast.success("project updated successfully");
+        this.setState({ busy: false });
       })
       .catch(error => {
         toast.error(error.message);
+        this.setState({ busy: false });
       });
   };
 
@@ -214,6 +218,7 @@ class Project extends React.Component {
           onFormInputChange={this.onFormInputChange}
           onSaveProjectClick={this.onSaveProjectClick}
           onSelectFabricClick={this.onSelectFabricClick}
+          busy={this.state.busy}
         />
 
         <Quilt
