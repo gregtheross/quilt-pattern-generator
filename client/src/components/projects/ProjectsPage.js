@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import * as ProjectApi from "../../api/ProjectApi";
+import Modal from "../utilities/Modal";
 
 class ProjectsPage extends React.Component {
   constructor(props) {
@@ -8,11 +9,17 @@ class ProjectsPage extends React.Component {
 
     this.state = {
       projectsList: [],
-      loading: true
+      loading: true,
+      showDeleteConfirmationModal: false,
+      projectIdToDelete: null
     };
   }
 
   componentDidMount() {
+    this.loadProjects();
+  }
+
+  loadProjects = () => {
     ProjectApi.getProjects()
       .then(response => {
         this.setState({ projectsList: response, loading: false });
@@ -21,15 +28,50 @@ class ProjectsPage extends React.Component {
         console.log(error);
         this.setState({ loading: false });
       });
-  }
+  };
 
   handleNewProjectClick = () => {
     this.props.history.push("/project");
   };
 
+  handleDeleteButtonClick = projectId => {
+    this.setState({
+      showDeleteConfirmationModal: true,
+      projectIdToDelete: projectId
+    });
+  };
+
+  handleDeleteProjectModalConfirm = () => {
+    ProjectApi.deleteProject(this.state.projectIdToDelete)
+      .then(res => {
+        alert(res.message);
+        this.loadProjects();
+      })
+      .catch(error => {
+        console.log("an error occurred while deleting project");
+      });
+    this.setState({
+      showDeleteConfirmationModal: false,
+      projectIdToDelete: null
+    });
+  };
+
+  handleDeleteProjectModalCancel = () => {
+    this.setState({
+      showDeleteConfirmationModal: false,
+      projectIdToDelete: null
+    });
+  };
+
   render() {
     return (
       <>
+        <Modal
+          show={this.state.showDeleteConfirmationModal}
+          message="Are you sure you want to delete this project?"
+          onConfirm={this.handleDeleteProjectModalConfirm}
+          onCancel={this.handleDeleteProjectModalCancel}
+        />
         <h1>Projects</h1>
         <button onClick={this.handleNewProjectClick}>
           Create a new project
@@ -44,6 +86,7 @@ class ProjectsPage extends React.Component {
                 <th>Name</th>
                 <th>Shape</th>
                 <th>Dimensions</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +101,13 @@ class ProjectsPage extends React.Component {
                     </td>
                     <td>{project.shapeType}</td>
                     <td>{project.dimensions}</td>
+                    <td>
+                      <button
+                        onClick={() => this.handleDeleteButtonClick(project.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 );
               })}

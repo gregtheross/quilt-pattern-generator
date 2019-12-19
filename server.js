@@ -79,13 +79,25 @@ app.post("/projects", function(req, res) {
       project.id = Number.isInteger(maxId) ? maxId + 1 : 1;
       jsonDb.projects.push(project);
     } else {
-      const pi = jsonDb.projects.findIndex(p => p.id === project.id);
-      jsonDb.projects[pi] = project;
+      const projectIndex = jsonDb.projects.findIndex(p => p.id === project.id);
+      jsonDb.projects[projectIndex] = project;
     }
 
     saveJsonDb();
 
     return res.send({ message: "Project saved successfully" });
+  }
+});
+
+app.delete("/projects", function(req, res) {
+  const projectIndex = jsonDb.projects.findIndex(p => p.id === req.body.id);
+
+  if (projectIndex >= 0) {
+    jsonDb.projects.splice(projectIndex, 1);
+    saveJsonDb();
+    return res.send({ message: "Project deleted successfully" });
+  } else {
+    return res.send({ message: "Project id not found" });
   }
 });
 

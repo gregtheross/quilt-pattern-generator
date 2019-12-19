@@ -21,3 +21,13 @@ export function saveProject(project) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function deleteProject(projectId) {
+  return fetch(`/projects`, {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ id: projectId })
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
