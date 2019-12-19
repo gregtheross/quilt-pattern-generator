@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch, NavLink } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import HomePage from "./components/home/HomePage";
 import ProjectsPage from "./components/projects/ProjectsPage";
 import Project from "./components/projects/Project";
-
 import PageNotFound from "./PageNotFound";
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
           <Route exact path="/project" component={Project} />
           <Route component={PageNotFound} />
         </Switch>
+        <ToastContainer autoClose={2000} />
       </>
     );
   }

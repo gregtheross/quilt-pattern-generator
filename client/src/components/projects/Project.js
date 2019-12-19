@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 import Quilt from "../quilts/Quilt.js";
 import QuiltForm from "../quilts/QuiltForm.js";
@@ -132,7 +133,7 @@ class Project extends React.Component {
       .then(response => {
         console.log(response.message);
         if (this.state.projectId === 0) this.props.history.push("/projects");
-        else alert("save successful");
+        else toast.success("project updated successfully");
       })
       .catch(error => {
         console.log(error);

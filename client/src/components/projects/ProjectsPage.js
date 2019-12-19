@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as ProjectApi from "../../api/ProjectApi";
 import Modal from "../utilities/Modal";
 
@@ -44,7 +45,7 @@ class ProjectsPage extends React.Component {
   handleDeleteProjectModalConfirm = () => {
     ProjectApi.deleteProject(this.state.projectIdToDelete)
       .then(res => {
-        alert(res.message);
+        toast.success("project deleted successfully");
         this.loadProjects();
       })
       .catch(error => {
