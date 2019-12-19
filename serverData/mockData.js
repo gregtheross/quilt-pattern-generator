@@ -53,7 +53,33 @@ const fabrics = [
   }
 ];
 
+const projects = [
+  {
+    id: 1,
+    name: "mock data project",
+    quiltFabrics: [1, 2, 3, 4, 5],
+    quiltRows: 2,
+    quiltColumns: 3,
+    quiltShapeType: 3,
+    quiltShapeWidth: 80,
+    quiltShapeHeight: 100,
+    quiltBlocks: [1, 2, 3, 4, 5, 1]
+  },
+  {
+    id: 2,
+    name: "mock data project2",
+    quiltFabrics: [1, 2, 3, 4],
+    quiltRows: 3,
+    quiltColumns: 3,
+    quiltShapeType: 1,
+    quiltShapeWidth: 80,
+    quiltShapeHeight: 100,
+    quiltBlocks: [1, 2, 3, 4, 1, 2, 3, 4, 1]
+  }
+];
+
 module.exports = {
   shapeTypes,
-  fabrics
+  fabrics,
+  projects
 };

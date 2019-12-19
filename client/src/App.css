@@ -24,14 +24,25 @@
 
 /**** end create-react-app stuff ****/
 
-
 /**** layout ****/
 
-
-
-
-/**** SVG stuff ****/
-.svg-quilt {
-  position: relative;
+/**** modals ****/
+.modal {
+  width: 500px;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid lightgray;
+  box-shadow: -30px 30px 30px lightgray;
+  position: fixed;
 }
 
+.modal img {
+  width: 100%;
+}
+
+/**** SVG stuff ****/
+.svg-quilt,
+.available-fabrics {
+  position: relative;
+  overflow: hidden;
+}

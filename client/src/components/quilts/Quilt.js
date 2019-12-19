@@ -63,6 +63,7 @@ class Quilt extends React.Component {
             backgroundImage={currentFabric && currentFabric.url}
             selected={shapeIndex === this.props.selectedBlockIndex}
             onFabricBlockClick={this.props.onFabricBlockClick}
+            clipPathPrefix="quilt"
           />
         );
 
@@ -102,6 +103,7 @@ class Quilt extends React.Component {
             backgroundImage={currentFabric && currentFabric.url}
             selected={shapeIndex === this.props.selectedBlockIndex}
             onFabricBlockClick={this.props.onFabricBlockClick}
+            clipPathPrefix="quilt"
           />
         );
 
@@ -154,6 +156,7 @@ class Quilt extends React.Component {
             backgroundImage={currentFabric && currentFabric.url}
             selected={shapeIndex === this.props.selectedBlockIndex}
             onFabricBlockClick={this.props.onFabricBlockClick}
+            clipPathPrefix="quilt"
           />
         );
 

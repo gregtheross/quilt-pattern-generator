@@ -7,8 +7,10 @@ class FabricBlock extends React.Component {
   };
 
   render() {
+    const clipPathId = `${this.props.clipPathPrefix}-${this.props.id}`;
+
     const style = {
-      clipPath: "url(#" + this.props.id + ")",
+      clipPath: "url(#" + clipPathId + ")",
       position: "absolute",
       top: this.props.top,
       left: this.props.left,
@@ -27,7 +29,7 @@ class FabricBlock extends React.Component {
         />
         <svg>
           <defs>
-            <clipPath id={this.props.id}>
+            <clipPath id={clipPathId}>
               <polygon points={this.props.points} />
             </clipPath>
           </defs>
@@ -44,7 +46,8 @@ FabricBlock.propTypes = {
   id: PropTypes.number.isRequired,
   points: PropTypes.string.isRequired,
   onFabricBlockClick: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired
+  selected: PropTypes.bool.isRequired,
+  clipPathPrefix: PropTypes.string.isRequired
 };
 
 export default FabricBlock;

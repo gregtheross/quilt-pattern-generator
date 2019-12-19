@@ -1,20 +1,18 @@
 import React from "react";
+import FabricList from "./FabricList";
 
 class QuiltForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleRandomizeClick = this.handleRandomizeClick.bind(this);
-  }
-
-  handleChange(e) {
+  handleChange = e => {
     this.props.onFormInputChange(e);
-  }
+  };
 
-  handleRandomizeClick(e) {
+  handleRandomizeClick = e => {
     this.props.onRandomizeClick();
-  }
+  };
+
+  handleSaveProjectClick = e => {
+    this.props.onSaveProjectClick();
+  };
 
   createOptions() {
     let options = [];
@@ -34,6 +32,17 @@ class QuiltForm extends React.Component {
   render() {
     return (
       <div>
+        <div>
+          <label>
+            Project Name:
+            <input
+              type="text"
+              name="projectName"
+              value={this.props.projectName}
+              onChange={this.handleChange}
+            />
+          </label>
+        </div>
         <div>
           <label>
             Rows:
@@ -80,7 +89,6 @@ class QuiltForm extends React.Component {
           </label>
         </div>
         <div
-          // todo: handle with a CSS class
           style={{
             visibility:
               this.props.selectedShapeType === 2 ? "visible" : "hidden"
@@ -96,19 +104,26 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
-        {/* todo: show/hide only when you want to start with a saved quilt? */}
         <div>
           <label>
-            Quilt Definition:
-            <textarea
-              name="quiltBlocks"
-              value={this.props.quiltBlocks}
-              onChange={this.handleChange}
-            ></textarea>
+            Selected Fabrics:
+            <FabricList
+              selectedFabricIds={this.props.selectedFabrics}
+              availableFabrics={this.props.availableFabrics}
+              onSelectFabricClick={this.props.onSelectFabricClick}
+            />
           </label>
         </div>
         <div>
           <button onClick={this.handleRandomizeClick}>Randomize</button>
+        </div>
+        <div>
+          <button
+            onClick={this.handleSaveProjectClick}
+            disabled={this.props.busy}
+          >
+            SaveProject
+          </button>
         </div>
       </div>
     );
