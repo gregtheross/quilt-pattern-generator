@@ -1,14 +1,31 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
+import * as FabricApi from "../../api/FabricApi";
 
 class AddFabricPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { url: "", file: null };
+    this.state = { imageType: "", imageUrl: "", imageFile: null };
   }
 
   handleChange = e => {
-    // todo: update state after form input changes
+    const value =
+      e.target.name === "imageFile" ? e.target.files[0] : e.target.value;
+
+    this.setState({ [e.target.name]: value });
+  };
+
+  handleSaveFabricClick = e => {
+    FabricApi.saveFabric(this.state)
+      .then(resp => {
+        toast.success("Fabric saved successfully");
+
+        this.props.history.push("/fabrics");
+      })
+      .catch(err => {
+        toast.error("Error saving fabric");
+      });
   };
 
   render() {
@@ -18,35 +35,55 @@ class AddFabricPage extends Component {
         <div>
           <div>
             <label>
-              <input type="radio" name="imageType" value="url" />
+              <input
+                type="radio"
+                name="imageType"
+                value="url"
+                onChange={this.handleChange}
+              />
               Use a public Url
             </label>
           </div>
           <div>
             <label>
-              <input type="radio" name="imageType" value="upload" />
-              Upload a file
+              Image Url:
+              <input
+                type="text"
+                name="imageUrl"
+                onChange={this.handleChange}
+                disabled={
+                  !this.state.imageType || this.state.imageType !== "url"
+                }
+              />
             </label>
           </div>
           <div>
             <label>
-              Image Url:
-              <input type="text" name="imageUrl" onChange={this.handleChange} />
+              <input
+                type="radio"
+                name="imageType"
+                value="upload"
+                onChange={this.handleChange}
+              />
+              Upload a file
             </label>
           </div>
           <div>
             <label>
               <input
                 type="file"
-                name="imageUpload"
+                name="imageFile"
                 onChange={this.handleChange}
+                disabled={
+                  !this.state.imageType || this.state.imageType !== "upload"
+                }
               />
             </label>
           </div>
           <div>
             <button
               onClick={this.handleSaveFabricClick}
-              // todo: validate before enabling disabled={this.props.busy}
+              // todo: disable until fields are properly filled
             >
               Save Fabric
             </button>
