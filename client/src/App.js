@@ -7,6 +7,8 @@ import HomePage from "./components/home/HomePage";
 import ProjectsPage from "./components/projects/ProjectsPage";
 import Project from "./components/projects/Project";
 import PageNotFound from "./PageNotFound";
+import FabricsPage from "./components/fabrics/FabricsPage";
+import AddFabricPage from "./components/fabrics/AddFabricPage";
 
 class App extends React.Component {
   render() {
@@ -16,12 +18,16 @@ class App extends React.Component {
           <NavLink to="/">Home</NavLink>
           {" | "}
           <NavLink to="/projects">Projects</NavLink>
+          {" | "}
+          <NavLink to="/fabrics">Fabrics</NavLink>
         </nav>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/projects" component={ProjectsPage} />
           <Route exact path="/project/:id" component={Project} />
           <Route exact path="/project" component={Project} />
+          <Route exact path="/fabrics" component={FabricsPage} />
+          <Route exact path="/add-fabric" component={AddFabricPage} />
           <Route component={PageNotFound} />
         </Switch>
         <ToastContainer autoClose={2000} />

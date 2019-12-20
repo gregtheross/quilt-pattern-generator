@@ -5,9 +5,3 @@ export function getShapeTypes() {
     .then(handleResponse)
     .catch(handleError);
 }
-
-export function getFabrics() {
-  return fetch("/fabrics")
-    .then(handleResponse)
-    .catch(handleError);
-}

@@ -6,6 +6,7 @@ import QuiltForm from "../quilts/QuiltForm.js";
 
 import * as ProjectApi from "../../api/ProjectApi";
 import * as QuiltApi from "../../api/QuiltApi";
+import * as FabricApi from "../../api/FabricApi";
 
 // todo: if this is editing a project, show the form.  otherwise ONLY show the quilt
 
@@ -69,7 +70,7 @@ class Project extends React.Component {
       });
 
     // get the fabrics
-    QuiltApi.getFabrics()
+    FabricApi.getFabrics()
       .then(response => {
         this.setState({ fabricList: response });
       })

@@ -38,6 +38,22 @@ app.get("/fabrics", (req, res) => {
   res.json(jsonDb.fabrics);
 });
 
+// todo: post fabrics to add new one
+
+app.delete("/fabrics", function(req, res) {
+  const fabricIndex = jsonDb.fabrics.findIndex(f => f.id === req.body.id);
+
+  if (fabricIndex >= 0) {
+    // todo: if the fabric is local, delete the file from the web server as well
+
+    jsonDb.fabrics.splice(fabricIndex, 1);
+    saveJsonDb();
+    return res.send({ message: "Fabric deleted successfully" });
+  } else {
+    return res.send({ message: "Fabric id not found" });
+  }
+});
+
 //#endregion Fabrics
 
 //#region Projects
