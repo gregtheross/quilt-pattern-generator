@@ -37,6 +37,8 @@ app.get("/shape-types", (req, res) => {
 
 //#region Fabrics
 
+const _publicImagesFolder = "/fabric-images/";
+
 app.get("/fabrics", (req, res) => {
   res.json(jsonDb.fabrics);
 });
@@ -50,17 +52,16 @@ app.post("/fabrics", function(req, res) {
     newFabric.url = fabricFormData.imageUrl;
   } else if (fabricFormData.imageType === "upload") {
     // save the image to the web server and set that URL
-    const publicImagesFolder = "/fabric-images/";
     const imagePath = path.join(
       __dirname,
       "/client/public",
-      publicImagesFolder,
+      _publicImagesFolder,
       req.files.imageFile.name
     );
 
     req.files.imageFile.mv(imagePath);
     newFabric.url = path
-      .join(publicImagesFolder, req.files.imageFile.name)
+      .join(_publicImagesFolder, req.files.imageFile.name)
       .replace(/\\/g, "/");
   } else {
     return res.status(400).send("Error saving fabric");
@@ -80,10 +81,28 @@ app.delete("/fabrics", function(req, res) {
   const fabricIndex = jsonDb.fabrics.findIndex(f => f.id === req.body.id);
 
   if (fabricIndex >= 0) {
-    // todo: if the fabric is local, delete the file from the web server as well
+    let deletedFabric = jsonDb.fabrics.splice(fabricIndex, 1);
 
-    jsonDb.fabrics.splice(fabricIndex, 1);
     saveJsonDb();
+
+    if (
+      deletedFabric &&
+      deletedFabric.length > 0 &&
+      deletedFabric[0].url.startsWith(_publicImagesFolder)
+    ) {
+      console.log("deleting file from image store");
+      fs.unlink(
+        path.join(__dirname, "/client/public", deletedFabric[0].url),
+        err => {
+          return res
+            .status(400)
+            .send(
+              `fabric deleted from db but there was an error deleting the file: ${err}`
+            );
+        }
+      );
+    }
+
     return res.send({ message: "Fabric deleted successfully" });
   } else {
     return res.send({ message: "Fabric id not found" });

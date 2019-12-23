@@ -89,8 +89,6 @@ class AddFabricPage extends Component {
             </button>
           </div>
         </div>
-
-        <p>todo: form with the following: url, upload file</p>
       </>
     );
   }
