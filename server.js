@@ -50,10 +50,10 @@ app.post("/fabrics", function(req, res) {
     newFabric.url = fabricFormData.imageUrl;
   } else if (fabricFormData.imageType === "upload") {
     // save the image to the web server and set that URL
-    const publicImagesFolder = "/public/fabric-images/";
+    const publicImagesFolder = "/fabric-images/";
     const imagePath = path.join(
       __dirname,
-      "/client",
+      "/client/public",
       publicImagesFolder,
       req.files.imageFile.name
     );

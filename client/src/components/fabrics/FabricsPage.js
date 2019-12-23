@@ -92,7 +92,6 @@ class FabricsPage extends Component {
                     <td>{fabric.id}</td>
                     <td>
                       <img
-                        // todo: figure out how to serve images in react...what a cluster
                         src={fabric.url}
                         alt={`fabric ${fabric.id}`}
                         width={50}
