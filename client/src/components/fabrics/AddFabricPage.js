@@ -81,12 +81,7 @@ class AddFabricPage extends Component {
             </label>
           </div>
           <div>
-            <button
-              onClick={this.handleSaveFabricClick}
-              // todo: disable until fields are properly filled
-            >
-              Save Fabric
-            </button>
+            <button onClick={this.handleSaveFabricClick}>Save Fabric</button>
           </div>
         </div>
       </>
