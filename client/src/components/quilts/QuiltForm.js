@@ -122,7 +122,7 @@ class QuiltForm extends React.Component {
             onClick={this.handleSaveProjectClick}
             disabled={this.props.busy}
           >
-            SaveProject
+            Save Project
           </button>
         </div>
       </div>

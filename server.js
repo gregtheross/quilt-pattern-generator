@@ -4,11 +4,14 @@ const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(fileUpload({ createParentPath: true }));
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Express Server listening on port ${port}`));
@@ -34,8 +37,76 @@ app.get("/shape-types", (req, res) => {
 
 //#region Fabrics
 
+const _publicImagesFolder = "/fabric-images/";
+
 app.get("/fabrics", (req, res) => {
   res.json(jsonDb.fabrics);
+});
+
+app.post("/fabrics", function(req, res) {
+  const fabricFormData = req.body;
+  const newFabric = { id: 0, url: "" };
+
+  if (fabricFormData.imageType === "url") {
+    // set URL if it's a simple public url value
+    newFabric.url = fabricFormData.imageUrl;
+  } else if (fabricFormData.imageType === "upload") {
+    // save the image to the web server and set that URL
+    const imagePath = path.join(
+      __dirname,
+      "/client/public",
+      _publicImagesFolder,
+      req.files.imageFile.name
+    );
+
+    req.files.imageFile.mv(imagePath);
+    newFabric.url = path
+      .join(_publicImagesFolder, req.files.imageFile.name)
+      .replace(/\\/g, "/");
+  } else {
+    return res.status(400).send("Error saving fabric");
+  }
+
+  // generate next sequential id if id = 0.  In a real app we'd let the DB do this or generate a guid
+  const maxId = Math.max(...jsonDb.fabrics.map(f => f.id));
+  newFabric.id = Number.isInteger(maxId) ? maxId + 1 : 1;
+
+  jsonDb.fabrics.push(newFabric);
+  saveJsonDb();
+
+  return res.send({ message: "Fabric saved successfully" });
+});
+
+app.delete("/fabrics", function(req, res) {
+  const fabricIndex = jsonDb.fabrics.findIndex(f => f.id === req.body.id);
+
+  if (fabricIndex >= 0) {
+    let deletedFabric = jsonDb.fabrics.splice(fabricIndex, 1);
+
+    saveJsonDb();
+
+    if (
+      deletedFabric &&
+      deletedFabric.length > 0 &&
+      deletedFabric[0].url.startsWith(_publicImagesFolder)
+    ) {
+      console.log("deleting file from image store");
+      fs.unlink(
+        path.join(__dirname, "/client/public", deletedFabric[0].url),
+        err => {
+          return res
+            .status(400)
+            .send(
+              `fabric deleted from db but there was an error deleting the file: ${err}`
+            );
+        }
+      );
+    }
+
+    return res.send({ message: "Fabric deleted successfully" });
+  } else {
+    return res.send({ message: "Fabric id not found" });
+  }
 });
 
 //#endregion Fabrics

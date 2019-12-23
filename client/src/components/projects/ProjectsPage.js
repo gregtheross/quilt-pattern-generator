@@ -118,8 +118,6 @@ class ProjectsPage extends React.Component {
         ) : (
           <p>you don't have any projects</p>
         )}
-        <h2>TODOS</h2>
-        <p>todo: create a "manage fabrics" page</p>
       </>
     );
   }

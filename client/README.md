@@ -69,8 +69,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## TODO:
 
-- route with homepage (manage fabrics)
-- upload fabric pictures
 - calculate purchase list
 - styles (research "styled-components")
 - Add scale and total dimension estimates
