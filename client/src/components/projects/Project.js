@@ -58,6 +58,7 @@ class Project extends React.Component {
         });
     } else {
       // use default state
+      this.setState({ busy: false });
     }
 
     // get the shape types from the server
