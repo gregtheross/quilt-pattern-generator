@@ -25,8 +25,9 @@ class FabricBlockCount extends Component {
           <div className="fabric-count-wrapper">
             <img src={fabric.fabricUrl} />
             <input
-              type="text"
+              type="number"
               value={fabric.count}
+              min="0"
               onChange={onChangeFabricCount}
               fabric_id={fabric.fabricId}
             />
