@@ -106,8 +106,11 @@ class Project extends React.Component {
         );
       }
     } else {
-      // todo: Use manualFabricBlocks
-      indexes = [3, 3, 3, 2];
+      this.state.manualFabricBlocks.forEach((manualFabricBlock) => {
+        for (let i = 0; i < manualFabricBlock.count; i++) {
+          indexes.push(manualFabricBlock.fabricId);
+        }
+      });
     }
 
     var currentIndex = indexes.length,
@@ -196,6 +199,13 @@ class Project extends React.Component {
     }
   };
 
+  resetManualFabricBlocks = () => {
+    let tmpManualFabricBlocks = this.state.fabricList
+      .filter((x) => this.state.selectedFabrics.includes(x.id))
+      .map((x) => ({ fabricId: x.id, fabricUrl: x.url, count: 0 }));
+    this.setState({ manualFabricBlocks: tmpManualFabricBlocks });
+  };
+
   onSelectFabricClick = (fabricId) => {
     // First, clean out any fabricIds that happen to not exist.
     //    bad state caused by a list of selected fabrics being saved and then a fabric getting deleted
@@ -209,20 +219,28 @@ class Project extends React.Component {
         return x.id;
       });
 
-    // todo: update manualFabricBlocks
-
     // remove/add the clicked fabricId from the temporary selected fabrics list and update state
     if (tmpSelectedFabrics.includes(fabricId)) {
-      this.setState({
-        selectedFabrics: tmpSelectedFabrics
-          .filter((x) => x !== fabricId)
-          .slice(),
-      });
+      this.setState(
+        {
+          selectedFabrics: tmpSelectedFabrics
+            .filter((x) => x !== fabricId)
+            .slice(),
+        },
+        () => {
+          this.resetManualFabricBlocks();
+        }
+      );
     } else {
       tmpSelectedFabrics.push(fabricId);
-      this.setState({
-        selectedFabrics: tmpSelectedFabrics,
-      });
+      this.setState(
+        {
+          selectedFabrics: tmpSelectedFabrics,
+        },
+        () => {
+          this.resetManualFabricBlocks();
+        }
+      );
     }
   };
 
