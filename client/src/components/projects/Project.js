@@ -26,6 +26,18 @@ class Project extends React.Component {
       shapeHeight: 100,
       selectedFabrics: [],
       evenlyDistributeBlocks: true,
+      manualFabricBlocks: [
+        {
+          fabricId: 2,
+          fabricUrl: "/fabric-images/IMG_1801.jpg",
+          count: 3,
+        },
+        {
+          fabricId: 3,
+          fabricUrl: "/fabric-images/IMG_1800.jpg",
+          count: 1,
+        },
+      ],
       fabricList: [],
       quiltBlocks: [],
       selectedBlockIndex: null,
@@ -94,7 +106,7 @@ class Project extends React.Component {
         );
       }
     } else {
-      // todo: Use the manual list of fabricIds
+      // todo: Use manualFabricBlocks
       indexes = [3, 3, 3, 2];
     }
 
@@ -197,6 +209,8 @@ class Project extends React.Component {
         return x.id;
       });
 
+    // todo: update manualFabricBlocks
+
     // remove/add the clicked fabricId from the temporary selected fabrics list and update state
     if (tmpSelectedFabrics.includes(fabricId)) {
       this.setState({
@@ -210,6 +224,21 @@ class Project extends React.Component {
         selectedFabrics: tmpSelectedFabrics,
       });
     }
+  };
+
+  handleChangeFabricCount = (event) => {
+    // find the manual block
+    const fabricId = event.target.getAttribute("fabric_id");
+    let tmpManualFabricBlocks = this.state.manualFabricBlocks;
+    const manualFabricIndex = tmpManualFabricBlocks.findIndex(
+      (x) => x.fabricId == fabricId
+    );
+
+    // update to the new count
+    tmpManualFabricBlocks[manualFabricIndex].count = event.target.value;
+    this.setState({
+      manualFabricBlocks: tmpManualFabricBlocks,
+    });
   };
 
   render() {
@@ -226,11 +255,13 @@ class Project extends React.Component {
           availableFabrics={this.state.fabricList}
           selectedFabrics={this.state.selectedFabrics}
           evenlyDistributeBlocks={this.state.evenlyDistributeBlocks}
+          manualFabricBlocks={this.state.manualFabricBlocks}
           quiltBlocks={this.state.quiltBlocks}
           onRandomizeClick={this.onRandomizeClick}
           onFormInputChange={this.onFormInputChange}
           onSaveProjectClick={this.onSaveProjectClick}
           onSelectFabricClick={this.onSelectFabricClick}
+          onChangeFabricCount={this.handleChangeFabricCount}
           busy={this.state.busy}
         />
 

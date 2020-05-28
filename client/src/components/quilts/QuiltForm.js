@@ -1,5 +1,6 @@
 import React from "react";
 import FabricList from "./FabricList";
+import FabricBlockCount from "./FabricBlockCount";
 
 class QuiltForm extends React.Component {
   handleChange = (e) => {
@@ -126,6 +127,13 @@ class QuiltForm extends React.Component {
             Evenly Distribute Blocks
           </label>
         </div>
+        {!this.props.evenlyDistributeBlocks && (
+          <FabricBlockCount
+            availableFabrics={this.props.availableFabrics}
+            fabricBlocks={this.props.manualFabricBlocks}
+            onChangeFabricCount={this.props.onChangeFabricCount}
+          />
+        )}
         <div>
           <button onClick={this.handleRandomizeClick}>Randomize</button>
         </div>
