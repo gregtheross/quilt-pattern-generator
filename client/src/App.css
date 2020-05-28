@@ -47,6 +47,7 @@
   overflow: hidden;
 }
 
+/**** Manual Fabric Count ****/
 .fabric-count-wrapper {
   display: flex;
   /* flex-direction: column; */
@@ -62,4 +63,13 @@
   margin-left: 10px;
   width: 30px;
   height: 20px;
+}
+
+.remaining-blocks span {
+  padding-left: 5px;
+}
+
+/**** other ****/
+.error {
+  color: #e74c3c;
 }

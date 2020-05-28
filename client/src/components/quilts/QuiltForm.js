@@ -132,6 +132,7 @@ class QuiltForm extends React.Component {
             availableFabrics={this.props.availableFabrics}
             fabricBlocks={this.props.manualFabricBlocks}
             onChangeFabricCount={this.props.onChangeFabricCount}
+            totalBlocks={this.props.rowCount * this.props.colCount}
           />
         )}
         <div>

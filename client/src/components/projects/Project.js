@@ -26,18 +26,7 @@ class Project extends React.Component {
       shapeHeight: 100,
       selectedFabrics: [],
       evenlyDistributeBlocks: true,
-      manualFabricBlocks: [
-        {
-          fabricId: 2,
-          fabricUrl: "/fabric-images/IMG_1801.jpg",
-          count: 3,
-        },
-        {
-          fabricId: 3,
-          fabricUrl: "/fabric-images/IMG_1800.jpg",
-          count: 1,
-        },
-      ],
+      manualFabricBlocks: [],
       fabricList: [],
       quiltBlocks: [],
       selectedBlockIndex: null,
@@ -62,6 +51,7 @@ class Project extends React.Component {
             shapeHeight: response.quiltShapeHeight,
             selectedFabrics: response.quiltFabrics,
             evenlyDistributeBlocks: response.evenlyDistributeBlocks,
+            manualFabricBlocks: response.manualFabricBlocks,
             quiltBlocks: response.quiltBlocks,
             busy: false,
           });
@@ -149,6 +139,7 @@ class Project extends React.Component {
       id: this.state.projectId,
       name: this.state.projectName,
       evenlyDistributeBlocks: this.state.evenlyDistributeBlocks,
+      manualFabricBlocks: this.state.manualFabricBlocks,
       quiltFabrics: this.state.selectedFabrics,
       quiltRows: this.state.rowCount,
       quiltColumns: this.state.colCount,
@@ -273,7 +264,7 @@ class Project extends React.Component {
           availableFabrics={this.state.fabricList}
           selectedFabrics={this.state.selectedFabrics}
           evenlyDistributeBlocks={this.state.evenlyDistributeBlocks}
-          manualFabricBlocks={this.state.manualFabricBlocks}
+          manualFabricBlocks={this.state.manualFabricBlocks || []}
           quiltBlocks={this.state.quiltBlocks}
           onRandomizeClick={this.onRandomizeClick}
           onFormInputChange={this.onFormInputChange}
