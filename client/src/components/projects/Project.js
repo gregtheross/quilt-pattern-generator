@@ -25,10 +25,11 @@ class Project extends React.Component {
       shapeWidth: 80,
       shapeHeight: 100,
       selectedFabrics: [],
+      evenlyDistributeBlocks: true,
       fabricList: [],
       quiltBlocks: [],
       selectedBlockIndex: null,
-      busy: true
+      busy: true,
     };
   }
 
@@ -38,7 +39,7 @@ class Project extends React.Component {
     if (projectId) {
       // get the project matching this id
       ProjectApi.getProject(projectId)
-        .then(response => {
+        .then((response) => {
           this.setState({
             projectId: response.id,
             projectName: response.name,
@@ -48,11 +49,12 @@ class Project extends React.Component {
             shapeWidth: response.quiltShapeWidth,
             shapeHeight: response.quiltShapeHeight,
             selectedFabrics: response.quiltFabrics,
+            evenlyDistributeBlocks: response.evenlyDistributeBlocks,
             quiltBlocks: response.quiltBlocks,
-            busy: false
+            busy: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           this.setState({ projectId: undefined, busy: false });
         });
@@ -63,32 +65,37 @@ class Project extends React.Component {
 
     // get the shape types from the server
     QuiltApi.getShapeTypes()
-      .then(response => {
+      .then((response) => {
         this.setState({ shapeTypes: response });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     // get the fabrics
     FabricApi.getFabrics()
-      .then(response => {
+      .then((response) => {
         this.setState({ fabricList: response });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
   randomizeFabricList() {
-    // Generate initial array of fabricIds and then shuffle them.
-    // This is purposeful because we want an even number of fabric swatches to be used and only their locations randomized.
-    // If we randomize the selection there is a high risk of having more fabric blocks than others
     let indexes = [];
-    for (let i = 0; i < this.state.colCount * this.state.rowCount; i++) {
-      indexes.push(
-        this.state.selectedFabrics[i % this.state.selectedFabrics.length]
-      );
+    if (this.state.evenlyDistributeBlocks) {
+      // Generate initial array of fabricIds and then shuffle them.
+      // Generate the number of fabric swatches to be used and only their locations randomized.
+      // If we randomize the selection there is a high risk of having more fabric blocks than others
+      for (let i = 0; i < this.state.colCount * this.state.rowCount; i++) {
+        indexes.push(
+          this.state.selectedFabrics[i % this.state.selectedFabrics.length]
+        );
+      }
+    } else {
+      // todo: Use the manual list of fabricIds
+      indexes = [3, 3, 3, 2];
     }
 
     var currentIndex = indexes.length,
@@ -115,7 +122,7 @@ class Project extends React.Component {
 
   onRandomizeClick = () => {
     this.setState({
-      quiltBlocks: this.randomizeFabricList()
+      quiltBlocks: this.randomizeFabricList(),
     });
   };
 
@@ -126,29 +133,30 @@ class Project extends React.Component {
     ProjectApi.saveProject({
       id: this.state.projectId,
       name: this.state.projectName,
+      evenlyDistributeBlocks: this.state.evenlyDistributeBlocks,
       quiltFabrics: this.state.selectedFabrics,
       quiltRows: this.state.rowCount,
       quiltColumns: this.state.colCount,
       quiltShapeType: this.state.selectedShapeType,
       quiltShapeWidth: this.state.shapeWidth,
       quiltShapeHeight: this.state.shapeHeight,
-      quiltBlocks: this.state.quiltBlocks
+      quiltBlocks: this.state.quiltBlocks,
     })
-      .then(response => {
+      .then((response) => {
         if (this.state.projectId === 0) this.props.history.push("/projects");
         else toast.success("project updated successfully");
         this.setState({ busy: false });
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error.message);
         this.setState({ busy: false });
       });
   };
 
-  onFormInputChange = e => {
+  onFormInputChange = (e) => {
     const value =
       e.target.name === "quiltBlocks"
-        ? e.target.value.split(",").map(x => {
+        ? e.target.value.split(",").map((x) => {
             return parseInt(x, 10);
           })
         : e.target.name === "selectedShapeType"
@@ -160,7 +168,7 @@ class Project extends React.Component {
     this.setState({ [e.target.name]: value });
   };
 
-  onFabricBlockClick = fabricId => {
+  onFabricBlockClick = (fabricId) => {
     if (this.state.selectedBlockIndex === null)
       this.setState({ selectedBlockIndex: fabricId });
     else if (this.state.selectedBlockIndex === fabricId)
@@ -171,12 +179,12 @@ class Project extends React.Component {
 
       this.setState({
         selectedBlockIndex: null,
-        quiltBlocks: tmpQuiltBlocks
+        quiltBlocks: tmpQuiltBlocks,
       });
     }
   };
 
-  onSelectFabricClick = fabricId => {
+  onSelectFabricClick = (fabricId) => {
     // First, clean out any fabricIds that happen to not exist.
     //    bad state caused by a list of selected fabrics being saved and then a fabric getting deleted
     //    this wouldn't happen in a real app with good database referential integrity so we'll just
@@ -184,20 +192,22 @@ class Project extends React.Component {
     // An alternative method would be to validate during load after both selectedFabrics and fabricList
     //    are populated
     let tmpSelectedFabrics = this.state.fabricList
-      .filter(x => this.state.selectedFabrics.includes(x.id))
-      .map(x => {
+      .filter((x) => this.state.selectedFabrics.includes(x.id))
+      .map((x) => {
         return x.id;
       });
 
     // remove/add the clicked fabricId from the temporary selected fabrics list and update state
     if (tmpSelectedFabrics.includes(fabricId)) {
       this.setState({
-        selectedFabrics: tmpSelectedFabrics.filter(x => x !== fabricId).slice()
+        selectedFabrics: tmpSelectedFabrics
+          .filter((x) => x !== fabricId)
+          .slice(),
       });
     } else {
       tmpSelectedFabrics.push(fabricId);
       this.setState({
-        selectedFabrics: tmpSelectedFabrics
+        selectedFabrics: tmpSelectedFabrics,
       });
     }
   };
@@ -215,6 +225,7 @@ class Project extends React.Component {
           shapeHeight={this.state.shapeHeight}
           availableFabrics={this.state.fabricList}
           selectedFabrics={this.state.selectedFabrics}
+          evenlyDistributeBlocks={this.state.evenlyDistributeBlocks}
           quiltBlocks={this.state.quiltBlocks}
           onRandomizeClick={this.onRandomizeClick}
           onFormInputChange={this.onFormInputChange}
