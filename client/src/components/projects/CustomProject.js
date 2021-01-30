@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 
-import Quilt from "../quilts/Quilt.js";
+import CustomQuilt from "../quilts/CustomQuilt.js";
 import CustomQuiltForm from "../quilts/CustomQuiltForm.js";
 
 import * as ProjectApi from "../../api/ProjectApi";
@@ -19,8 +19,8 @@ class CustomProject extends React.Component {
       quiltWidth: 100,
       quiltHeight: 100,
       quiltDefinition: "",
-      // rowCount: 8,
-      // colCount: 11,
+      rowCount: 8,
+      colCount: 11,
       selectedShapeType: 5,
       // shapeTypes: [],
       // shapeWidth: 80,
@@ -244,18 +244,19 @@ class CustomProject extends React.Component {
           busy={this.state.busy}
         />
 
-        {/* todo: CustomQuilt */}
-        {/* <Quilt
-          rowCount={this.state.rowCount}
-          colCount={this.state.colCount}
-          shapeType={this.state.selectedShapeType}
-          shapeWidth={this.state.shapeWidth}
-          shapeHeight={this.state.shapeHeight}
+        <CustomQuilt
+          // rowCount={this.state.rowCount}
+          // colCount={this.state.colCount}
+          // shapeType={this.state.selectedShapeType}
+          // shapeWidth={this.state.shapeWidth}
+          // shapeHeight={this.state.shapeHeight}
+          quiltWidth={this.state.quiltWidth}
+          quiltHeight={this.state.quiltHeight}
           fabricList={this.state.fabricList}
-          quiltBlocks={this.state.quiltBlocks}
-          onFabricBlockClick={this.onFabricBlockClick}
-          selectedBlockIndex={this.state.selectedBlockIndex}
-        /> */}
+          // quiltBlocks={this.state.quiltBlocks}
+          // onFabricBlockClick={this.onFabricBlockClick}
+          // selectedBlockIndex={this.state.selectedBlockIndex}
+        />
       </div>
     ) : (
       <p>project id was invalid</p>
