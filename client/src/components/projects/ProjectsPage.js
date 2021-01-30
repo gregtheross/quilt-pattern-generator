@@ -12,7 +12,7 @@ class ProjectsPage extends React.Component {
       projectsList: [],
       loading: true,
       showDeleteConfirmationModal: false,
-      projectIdToDelete: null
+      projectIdToDelete: null,
     };
   }
 
@@ -22,10 +22,10 @@ class ProjectsPage extends React.Component {
 
   loadProjects = () => {
     ProjectApi.getProjects()
-      .then(response => {
+      .then((response) => {
         this.setState({ projectsList: response, loading: false });
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error("error fetching projects");
         console.log(error);
         this.setState({ loading: false });
@@ -36,32 +36,36 @@ class ProjectsPage extends React.Component {
     this.props.history.push("/project");
   };
 
-  handleDeleteButtonClick = projectId => {
+  handleNewCustomProjectClick = () => {
+    this.props.history.push("/custom-project");
+  };
+
+  handleDeleteButtonClick = (projectId) => {
     this.setState({
       showDeleteConfirmationModal: true,
-      projectIdToDelete: projectId
+      projectIdToDelete: projectId,
     });
   };
 
   handleDeleteProjectModalConfirm = () => {
     ProjectApi.deleteProject(this.state.projectIdToDelete)
-      .then(res => {
+      .then((res) => {
         toast.success("project deleted successfully");
         this.loadProjects();
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error("an error occurred while deleting project");
       });
     this.setState({
       showDeleteConfirmationModal: false,
-      projectIdToDelete: null
+      projectIdToDelete: null,
     });
   };
 
   handleDeleteProjectModalCancel = () => {
     this.setState({
       showDeleteConfirmationModal: false,
-      projectIdToDelete: null
+      projectIdToDelete: null,
     });
   };
 
@@ -76,7 +80,10 @@ class ProjectsPage extends React.Component {
         />
         <h1>Projects</h1>
         <button onClick={this.handleNewProjectClick}>
-          Create a new project
+          Create a new shape pattern project
+        </button>
+        <button onClick={this.handleNewCustomProjectClick}>
+          Create a new custom project
         </button>
         {this.state.loading ? (
           <p>LOADING...</p>
@@ -92,14 +99,12 @@ class ProjectsPage extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.projectsList.map(project => {
+              {this.state.projectsList.map((project) => {
                 return (
                   <tr key={project.id}>
                     <td>{project.id}</td>
                     <td>
-                      <NavLink to={`/project/${project.id}`}>
-                        {project.name}
-                      </NavLink>
+                      <NavLink to={project.url}>{project.name}</NavLink>
                     </td>
                     <td>{project.shapeType}</td>
                     <td>{project.dimensions}</td>

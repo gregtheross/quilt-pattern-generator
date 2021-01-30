@@ -20,7 +20,7 @@ app.listen(port, () => console.log(`Express Server listening on port ${port}`));
 
 function saveJsonDb() {
   // yeah...not ideal for a real world app
-  fs.writeFile("./serverData/db.json", JSON.stringify(jsonDb), function(err) {
+  fs.writeFile("./serverData/db.json", JSON.stringify(jsonDb), function (err) {
     err ? console.log(err) : console.log("db.json updated");
   });
 }
@@ -43,7 +43,7 @@ app.get("/fabrics", (req, res) => {
   res.json(jsonDb.fabrics);
 });
 
-app.post("/fabrics", function(req, res) {
+app.post("/fabrics", function (req, res) {
   const fabricFormData = req.body;
   const newFabric = { id: 0, url: "" };
 
@@ -68,7 +68,7 @@ app.post("/fabrics", function(req, res) {
   }
 
   // generate next sequential id if id = 0.  In a real app we'd let the DB do this or generate a guid
-  const maxId = Math.max(...jsonDb.fabrics.map(f => f.id));
+  const maxId = Math.max(...jsonDb.fabrics.map((f) => f.id));
   newFabric.id = Number.isInteger(maxId) ? maxId + 1 : 1;
 
   jsonDb.fabrics.push(newFabric);
@@ -77,8 +77,8 @@ app.post("/fabrics", function(req, res) {
   return res.send({ message: "Fabric saved successfully" });
 });
 
-app.delete("/fabrics", function(req, res) {
-  const fabricIndex = jsonDb.fabrics.findIndex(f => f.id === req.body.id);
+app.delete("/fabrics", function (req, res) {
+  const fabricIndex = jsonDb.fabrics.findIndex((f) => f.id === req.body.id);
 
   if (fabricIndex >= 0) {
     let deletedFabric = jsonDb.fabrics.splice(fabricIndex, 1);
@@ -93,7 +93,7 @@ app.delete("/fabrics", function(req, res) {
       console.log("deleting file from image store");
       fs.unlink(
         path.join(__dirname, "/client/public", deletedFabric[0].url),
-        err => {
+        (err) => {
           return res
             .status(400)
             .send(
@@ -114,18 +114,23 @@ app.delete("/fabrics", function(req, res) {
 //#region Projects
 
 app.get("/projects/:id", (req, res) => {
-  let pr = jsonDb.projects.find(p => p.id === parseInt(req.params.id, 10));
+  let pr = jsonDb.projects.find((p) => p.id === parseInt(req.params.id, 10));
   res.json(pr);
 });
 
 app.get("/projects", (req, res) => {
   res.json(
-    jsonDb.projects.map(p => {
+    jsonDb.projects.map((p) => {
       return {
         id: p.id,
         name: p.name,
-        dimensions: `${p.quiltRows} x ${p.quiltColumns}`,
-        shapeType: jsonDb.shapeTypes.find(s => s.id === p.quiltShapeType).name
+        url: `/${p.quiltShapeType === 5 ? "custom-" : ""}project/${p.id}`,
+        dimensions:
+          p.quiltShapeType === 5
+            ? `${p.quiltWidth} x ${p.quiltHeight}`
+            : `${p.quiltRows} x ${p.quiltColumns}`,
+        shapeType: jsonDb.shapeTypes.find((s) => s.id === p.quiltShapeType)
+          .name,
       };
     })
   );
@@ -138,7 +143,7 @@ function validateProject(project) {
   return "";
 }
 
-app.post("/projects", function(req, res) {
+app.post("/projects", function (req, res) {
   const project = req.body;
   const error = validateProject(project);
 
@@ -147,11 +152,13 @@ app.post("/projects", function(req, res) {
   } else {
     // generate next sequential id if id = 0.  In a real app we'd let the DB do this or generate a guid
     if (project.id === 0) {
-      const maxId = Math.max(...jsonDb.projects.map(p => p.id));
+      const maxId = Math.max(...jsonDb.projects.map((p) => p.id));
       project.id = Number.isInteger(maxId) ? maxId + 1 : 1;
       jsonDb.projects.push(project);
     } else {
-      const projectIndex = jsonDb.projects.findIndex(p => p.id === project.id);
+      const projectIndex = jsonDb.projects.findIndex(
+        (p) => p.id === project.id
+      );
       jsonDb.projects[projectIndex] = project;
     }
 
@@ -161,8 +168,8 @@ app.post("/projects", function(req, res) {
   }
 });
 
-app.delete("/projects", function(req, res) {
-  const projectIndex = jsonDb.projects.findIndex(p => p.id === req.body.id);
+app.delete("/projects", function (req, res) {
+  const projectIndex = jsonDb.projects.findIndex((p) => p.id === req.body.id);
 
   if (projectIndex >= 0) {
     jsonDb.projects.splice(projectIndex, 1);

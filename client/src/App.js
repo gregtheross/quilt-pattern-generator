@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import HomePage from "./components/home/HomePage";
 import ProjectsPage from "./components/projects/ProjectsPage";
 import Project from "./components/projects/Project";
+import CustomProject from "./components/projects/CustomProject";
 import PageNotFound from "./PageNotFound";
 import FabricsPage from "./components/fabrics/FabricsPage";
 import AddFabricPage from "./components/fabrics/AddFabricPage";
@@ -26,6 +27,8 @@ class App extends React.Component {
           <Route exact path="/projects" component={ProjectsPage} />
           <Route exact path="/project/:id" component={Project} />
           <Route exact path="/project" component={Project} />
+          <Route exact path="/custom-project/:id" component={CustomProject} />
+          <Route exact path="/custom-project" component={CustomProject} />
           <Route exact path="/fabrics" component={FabricsPage} />
           <Route exact path="/add-fabric" component={AddFabricPage} />
           <Route component={PageNotFound} />
