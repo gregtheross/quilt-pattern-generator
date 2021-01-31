@@ -38,6 +38,8 @@ class CustomQuilt extends React.Component {
           clipPathPrefix="quilt"
         />
       );
+
+      shapeIndex++;
     });
 
     return svgShapes;
