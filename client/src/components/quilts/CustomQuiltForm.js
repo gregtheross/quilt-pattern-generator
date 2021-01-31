@@ -68,7 +68,8 @@ class QuiltForm extends React.Component {
         </div>
 
         {/* todo: break out custom shapes into its own db store and api, add list of custom shapes here to pick from */}
-        <div>
+        {/* todo: hide this until we have an interface for it */}
+        {/* <div>
           <label>
             Quilt Definition
             <textarea
@@ -78,7 +79,13 @@ class QuiltForm extends React.Component {
               onChange={this.handleChange}
             ></textarea>
           </label>
-        </div>
+        </div> */}
+        {/* <div>
+          <label>
+            Shapes:
+            // todo: add custom shapes component with add button, list of current shapes, and click on a shape to edit in a modal
+          </label>
+        </div> */}
         <div>
           <label>
             Selected Fabrics:

@@ -35,8 +35,8 @@ class CustomQuilt extends React.Component {
           id={shapeIndex}
           key={shapeIndex}
           points={currentCustomShape.points}
-          width={block.width}
-          height={block.height}
+          width={currentCustomShape.width}
+          height={currentCustomShape.height}
           top={block.top}
           left={block.left}
           backgroundImage={currentFabric && currentFabric.url}
@@ -60,6 +60,7 @@ class CustomQuilt extends React.Component {
           style={{
             width: this.props.quiltWidth,
             height:  this.props.quiltHeight,
+            border: '1px solid black'
           }}
         >
           {this.createCustomQuilt()}
