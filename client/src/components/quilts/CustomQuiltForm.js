@@ -66,6 +66,8 @@ class QuiltForm extends React.Component {
             />
           </label>
         </div>
+
+        {/* todo: break out custom shapes into its own db store and api, add list of custom shapes here to pick from */}
         <div>
           <label>
             Quilt Definition

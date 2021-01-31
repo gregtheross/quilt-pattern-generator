@@ -15,19 +15,26 @@ class CustomQuilt extends React.Component {
 
     let svgShapes = [];
 
-    JSON.parse(quiltDefinition).blocks.forEach(block => {
-      // console.log(block);
+    let {
+      blocks,
+      customShapes
+    } = JSON.parse(quiltDefinition);
+
+    blocks.forEach(block => {
+      let currentCustomShape = customShapes.find(
+        (fabric) => fabric.id === block.shapeId
+      );
 
       let currentFabric = this.props.fabricList.find(
         // eslint-disable-next-line
-        (fabric) => fabric.id === block.fabricId
+        (fabric) => fabric.id === currentCustomShape.fabricId
       );
 
       svgShapes.push(
         <FabricBlock
           id={shapeIndex}
           key={shapeIndex}
-          points={block.points}
+          points={currentCustomShape.points}
           width={block.width}
           height={block.height}
           top={block.top}
