@@ -47,7 +47,7 @@ class CustomProject extends React.Component {
             projectName: response.name,
             quiltWidth: response.quiltWidth,
             quiltHeight: response.quiltHeight,
-            quiltDefinition: response.quiltDefinition,
+            quiltDefinition: JSON.stringify(response.quiltDefinition),
             rowCount: response.quiltRows,
             colCount: response.quiltColumns,
             selectedShapeType: response.quiltShapeType,
@@ -106,7 +106,7 @@ class CustomProject extends React.Component {
       quiltFabrics: this.state.selectedFabrics,
       quiltWidth: this.state.quiltWidth,
       quiltHeight: this.state.quiltHeight,
-      quiltDefinition: this.state.quiltDefinition,
+      quiltDefinition: JSON.parse(this.state.quiltDefinition),
       quiltBlocks: this.state.quiltBlocks,
       // todo: cleanup and add/remove new fields
       // quiltRows: this.state.rowCount,
@@ -250,9 +250,10 @@ class CustomProject extends React.Component {
           // shapeType={this.state.selectedShapeType}
           // shapeWidth={this.state.shapeWidth}
           // shapeHeight={this.state.shapeHeight}
-          quiltWidth={this.state.quiltWidth}
-          quiltHeight={this.state.quiltHeight}
+          quiltWidth={parseInt(this.state.quiltWidth)}
+          quiltHeight={parseInt(this.state.quiltHeight)}
           fabricList={this.state.fabricList}
+          quiltDefinition={this.state.quiltDefinition}
           // quiltBlocks={this.state.quiltBlocks}
           // onFabricBlockClick={this.onFabricBlockClick}
           // selectedBlockIndex={this.state.selectedBlockIndex}
