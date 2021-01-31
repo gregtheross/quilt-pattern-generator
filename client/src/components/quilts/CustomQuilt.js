@@ -126,10 +126,9 @@ class CustomQuilt extends React.Component {
       <div>
         <div
           className="svg-quilt"
-          // todo: fix these only using default instead of what's sent from CustomProject state
           style={{
-            width: this.props.quiltWidth,
-            height: this.props.quiltHeight,
+            width: parseInt(this.props.quiltWidth),
+            height:  parseInt(this.props.quiltHeight),
           }}
         >
           {this.createCustomQuilt()}
