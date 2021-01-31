@@ -9,14 +9,14 @@ class CustomQuilt extends React.Component {
       quiltDefinition
     } = this.props;
 
-    if (!quiltDefinition) return;
+    if (!quiltDefinition || !fabricList.length) return;
     
     let shapeIndex = 0;
 
     let svgShapes = [];
 
     JSON.parse(quiltDefinition).blocks.forEach(block => {
-      console.log(block);
+      // console.log(block);
 
       let currentFabric = this.props.fabricList.find(
         // eslint-disable-next-line
@@ -33,8 +33,8 @@ class CustomQuilt extends React.Component {
           top={block.top}
           left={block.left}
           backgroundImage={currentFabric && currentFabric.url}
-          // selected={shapeIndex === this.props.selectedBlockIndex}
-          // onFabricBlockClick={this.props.onFabricBlockClick}
+          selected={false}
+          onFabricBlockClick={() => {}}
           clipPathPrefix="quilt"
         />
       );
