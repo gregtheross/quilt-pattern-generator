@@ -254,6 +254,7 @@ class CustomProject extends React.Component {
           quiltHeight={parseInt(this.state.quiltHeight)}
           fabricList={this.state.fabricList}
           quiltDefinition={this.state.quiltDefinition}
+          fabricMap={[3,5]}
           // quiltBlocks={this.state.quiltBlocks}
           // onFabricBlockClick={this.onFabricBlockClick}
           // selectedBlockIndex={this.state.selectedBlockIndex}

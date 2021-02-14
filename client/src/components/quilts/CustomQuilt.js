@@ -6,7 +6,8 @@ class CustomQuilt extends React.Component {
   createCustomQuilt() {
     const {
       fabricList,
-      quiltDefinition
+      quiltDefinition,
+      fabricMap
     } = this.props;
 
     if (!quiltDefinition || !fabricList.length) return;
@@ -41,10 +42,9 @@ class CustomQuilt extends React.Component {
         (fabric) => fabric.id === block.shapeId
       );
 
-      // todo: use a mapping to find the fabric, otherwise use a default color based on the block index
-      let currentFabric = this.props.fabricList.find(
+      let currentFabric = fabricList.find(
         // eslint-disable-next-line
-        (fabric) => fabric.id === currentCustomShape.fabricId
+        (fabric) => fabric.id === fabricMap[currentCustomShape.fabricIndex] // todo: add index bounds protection
       );
 
       svgShapes.push(
@@ -96,6 +96,7 @@ CustomQuilt.propTypes = {
   quiltWidth: PropTypes.number.isRequired,
   fabricList: PropTypes.array.isRequired,
   quiltDefinition: PropTypes.string.isRequired,
+  fabricMap: PropTypes.array.isRequired,
 
   // selectedBlockIndex: PropTypes.number,
   // onFabricBlockClick: PropTypes.func.isRequired,

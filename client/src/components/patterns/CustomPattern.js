@@ -237,6 +237,7 @@ class CustomPattern extends React.Component {
           quiltHeight={parseInt(this.state.quiltHeight)}
           fabricList={this.state.fabricList}
           quiltDefinition={this.state.quiltDefinition}
+          fabricMap={[]}
         />
       </div>
     ) : (
