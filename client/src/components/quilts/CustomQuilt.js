@@ -57,7 +57,7 @@ class CustomQuilt extends React.Component {
           top={block.top}
           left={block.left}
           backgroundImage={currentFabric && currentFabric.url}
-          backgroundColor={backupColors[block.shapeId]}
+          backgroundColor={backupColors[currentCustomShape.fabricIndex]}
           selected={false}
           onFabricBlockClick={() => {}}
           clipPathPrefix="quilt"
