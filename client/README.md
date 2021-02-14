@@ -69,8 +69,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## TODO:
 
+- Add a "zoom" on fabrics to be used when creating the blocks because the width and height are actually for the background image, not the block
+- Add cut-off border around quilt
+- Create a new print quilt page and link it from the project and/or projects list page
 - calculate purchase list
 - styles (research "styled-components")
 - Add scale and total dimension estimates
-- Add cut-off border around quilt
-- Create a new print quilt page and link it from the project and/or projects list page
