@@ -182,4 +182,74 @@ app.delete("/projects", function (req, res) {
 
 //#endregion Projects
 
+//#region Patterns
+
+app.get("/patterns/:id", (req, res) => {
+  let pr = jsonDb.patterns.find((p) => p.id === parseInt(req.params.id, 10));
+  res.json(pr);
+});
+
+app.get("/patterns", (req, res) => {
+  res.json(
+    jsonDb.patterns.map((p) => {
+      return {
+        id: p.id,
+        name: p.name,
+        url: `/custom-pattern/${p.id}`,
+        dimensions: `${p.quiltWidth} x ${p.quiltHeight}`,
+        shapeType: jsonDb.shapeTypes.find((s) => s.id === p.quiltShapeType)
+          .name,
+      };
+    })
+  );
+});
+
+function validatePattern(pattern) {
+  // client-side validation is actually best.  However, name is the only one that would actually break anything.
+  // other fields simply cause the quilt from displaying anything
+  if (!pattern.name) return "name is required";
+  return "";
+}
+
+app.post("/patterns", function (req, res) {
+  const pattern = req.body;
+  const error = validatePattern(pattern);
+
+  if (error) {
+    res.status(400).send(error);
+  } else {
+    // generate next sequential id if id = 0.  In a real app we'd let the DB do this or generate a guid
+    if (pattern.id === 0) {
+      const maxId = Math.max(...jsonDb.patterns.map((p) => p.id));
+      pattern.id = Number.isInteger(maxId) ? maxId + 1 : 1;
+      jsonDb.patterns.push(pattern);
+    } else {
+      const patternIndex = jsonDb.patterns.findIndex(
+        (p) => p.id === pattern.id
+      );
+      jsonDb.patterns[patternIndex] = pattern;
+    }
+
+    saveJsonDb();
+
+    return res.send({ message: "Pattern saved successfully" });
+  }
+});
+
+app.delete("/patterns", function (req, res) {
+  const patternIndex = jsonDb.patterns.findIndex((p) => p.id === req.body.id);
+
+  if (patternIndex >= 0) {
+    jsonDb.patterns.splice(patternIndex, 1);
+    saveJsonDb();
+    return res.send({ message: "Pattern deleted successfully" });
+  } else {
+    return res.send({ message: "Pattern id not found" });
+  }
+});
+
+//#endregion Patterns
+
+
+
 // todo: custom shapes?
