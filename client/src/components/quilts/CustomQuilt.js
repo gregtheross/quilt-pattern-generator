@@ -20,11 +20,28 @@ class CustomQuilt extends React.Component {
       customShapes
     } = JSON.parse(quiltDefinition);
 
+    // todo: generate based on number of fabric blocks, for now hard-coding 12 colors should safely handle most quilts
+    let backupColors = [
+      "#000",
+      "#f00",
+      "#0f0",
+      "#00f",
+      "#ff0",
+      "#0ff",
+      "#700",
+      "#070",
+      "#007",
+      "#770",
+      "#077",
+      "#777",
+    ]
+
     blocks.forEach(block => {
       let currentCustomShape = customShapes.find(
         (fabric) => fabric.id === block.shapeId
       );
 
+      // todo: use a mapping to find the fabric, otherwise use a default color based on the block index
       let currentFabric = this.props.fabricList.find(
         // eslint-disable-next-line
         (fabric) => fabric.id === currentCustomShape.fabricId
@@ -40,6 +57,7 @@ class CustomQuilt extends React.Component {
           top={block.top}
           left={block.left}
           backgroundImage={currentFabric && currentFabric.url}
+          backgroundColor={backupColors[block.shapeId]}
           selected={false}
           onFabricBlockClick={() => {}}
           clipPathPrefix="quilt"

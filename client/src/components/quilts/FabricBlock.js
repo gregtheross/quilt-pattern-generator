@@ -14,7 +14,8 @@ class FabricBlock extends React.Component {
       position: "absolute",
       top: this.props.top,
       left: this.props.left,
-      opacity: this.props.selected ? ".25" : "1"
+      opacity: this.props.selected ? ".25" : "1",
+      backgroundColor: this.props.backgroundColor
     };
 
     return (
@@ -22,7 +23,7 @@ class FabricBlock extends React.Component {
         <img
           alt={`tile ${this.props.id}`}
           style={style}
-          src={this.props.backgroundImage}
+          src={this.props.backgroundImage} // todo: null-check this and use transparent 1x1 pixel image
           width={this.props.width}
           height={this.props.height}
           onClick={this.handleClick}
@@ -40,7 +41,8 @@ class FabricBlock extends React.Component {
 }
 
 FabricBlock.propTypes = {
-  backgroundImage: PropTypes.string.isRequired,
+  backgroundImage: PropTypes.string,
+  backgroundColor: PropTypes.string,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
