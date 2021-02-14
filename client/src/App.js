@@ -29,6 +29,8 @@ class App extends React.Component {
           <Route exact path="/project" component={Project} />
           <Route exact path="/custom-project/:id" component={CustomProject} />
           <Route exact path="/custom-project" component={CustomProject} />
+          <Route exact path="/custom-pattern/:id" component={CustomPattern} />
+          <Route exact path="/custom-pattern" component={CustomPattern} />
           <Route exact path="/fabrics" component={FabricsPage} />
           <Route exact path="/add-fabric" component={AddFabricPage} />
           <Route component={PageNotFound} />
