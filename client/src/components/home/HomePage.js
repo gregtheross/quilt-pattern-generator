@@ -12,6 +12,9 @@ class HomePage extends React.Component {
         <p>
           <NavLink to="/fabrics">Fabrics</NavLink>
         </p>
+        <p>
+          <NavLink to="/patterns">Patterns</NavLink>
+        </p>
       </>
     );
   }

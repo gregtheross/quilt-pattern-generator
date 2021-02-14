@@ -197,8 +197,6 @@ app.get("/patterns", (req, res) => {
         name: p.name,
         url: `/custom-pattern/${p.id}`,
         dimensions: `${p.quiltWidth} x ${p.quiltHeight}`,
-        shapeType: jsonDb.shapeTypes.find((s) => s.id === p.quiltShapeType)
-          .name,
       };
     })
   );

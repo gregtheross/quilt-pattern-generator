@@ -16,8 +16,8 @@ class CustomPattern extends React.Component {
     this.state = {
       patternId: 0,
       patternName: "",
-      quiltWidth: "",
-      quiltHeight: "",
+      quiltWidth: "100",
+      quiltHeight: "100",
       fabricCount: "",
       quiltDefinition: "{\"customShapes\":[{\"id\":0,\"width\":50,\"height\":50,\"points\":\"0 0, 25 25, 0 50\",\"fabricId\":5}],\"blocks\":[{\"top\":0,\"left\":0,\"shapeId\":0}]}",
       selectedShapeType: 5, // todo: needed?

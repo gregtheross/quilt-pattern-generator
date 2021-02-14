@@ -7,6 +7,8 @@ import HomePage from "./components/home/HomePage";
 import ProjectsPage from "./components/projects/ProjectsPage";
 import Project from "./components/projects/Project";
 import CustomProject from "./components/projects/CustomProject";
+import PatternsPage from "./components/patterns/PatternsPage";
+import CustomPattern from "./components/patterns/CustomPattern";
 import PageNotFound from "./PageNotFound";
 import FabricsPage from "./components/fabrics/FabricsPage";
 import AddFabricPage from "./components/fabrics/AddFabricPage";
@@ -21,6 +23,8 @@ class App extends React.Component {
           <NavLink to="/projects">Projects</NavLink>
           {" | "}
           <NavLink to="/fabrics">Fabrics</NavLink>
+          {" | "}
+          <NavLink to="/patterns">Patterns</NavLink>
         </nav>
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -29,6 +33,7 @@ class App extends React.Component {
           <Route exact path="/project" component={Project} />
           <Route exact path="/custom-project/:id" component={CustomProject} />
           <Route exact path="/custom-project" component={CustomProject} />
+          <Route exact path="/patterns" component={PatternsPage} />
           <Route exact path="/custom-pattern/:id" component={CustomPattern} />
           <Route exact path="/custom-pattern" component={CustomPattern} />
           <Route exact path="/fabrics" component={FabricsPage} />
