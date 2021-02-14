@@ -8,6 +8,11 @@ import * as ProjectApi from "../../api/ProjectApi";
 import * as QuiltApi from "../../api/QuiltApi";
 import * as FabricApi from "../../api/FabricApi";
 
+// todo: on load, fetch all patterns
+// todo: pass the selectedPattern.quiltDefinition to the CustomQuilt
+// todo: remove quiltdefinition from CustomProject state
+// todo: create table of fabric index and selected pattern for editing the fabricMap
+
 class CustomProject extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +27,13 @@ class CustomProject extends React.Component {
       rowCount: 8,
       colCount: 11,
       selectedShapeType: 5,
+      // todo: fetch from API, default to []
+      patterns: [
+        {id:1, name:'test1'},
+        {id:2, name:'time together WIP'}
+      ],
+      selectedPattern: 0,
+      fabricMap: [],
       // shapeTypes: [],
       // shapeWidth: 80,
       // shapeHeight: 100,
@@ -29,8 +41,8 @@ class CustomProject extends React.Component {
       // evenlyDistributeBlocks: true,
       manualFabricBlocks: [],
       fabricList: [],
-      quiltBlocks: [],
-      selectedBlockIndex: null,
+      quiltBlocks: [],// todo: needed?
+      selectedBlockIndex: null, // todo: needed?
       busy: true,
     };
   }
@@ -51,6 +63,8 @@ class CustomProject extends React.Component {
             rowCount: response.quiltRows,
             colCount: response.quiltColumns,
             selectedShapeType: response.quiltShapeType,
+            selectedPattern: response.selectedPattern,
+            fabricMap: response.fabricMap,
             shapeWidth: response.quiltShapeWidth,
             shapeHeight: response.quiltShapeHeight,
             selectedFabrics: response.quiltFabrics,
@@ -69,6 +83,7 @@ class CustomProject extends React.Component {
       this.setState({ busy: false });
     }
 
+    // todo: needed?
     // get the shape types from the server
     QuiltApi.getShapeTypes()
       .then((response) => {
@@ -86,8 +101,11 @@ class CustomProject extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+
+    // todo: get the patterns
   }
 
+  // todo: needed?
   swapFabrics(indexes, index1, index2) {
     let temporaryValue = indexes[index1];
     indexes[index1] = indexes[index2];
@@ -108,6 +126,8 @@ class CustomProject extends React.Component {
       quiltHeight: this.state.quiltHeight,
       quiltDefinition: JSON.parse(this.state.quiltDefinition),
       quiltBlocks: this.state.quiltBlocks,
+      selectedPattern: this.state.selectedPattern,
+      fabricMap: this.state.fabricMap,
       // todo: cleanup and add/remove new fields
       // quiltRows: this.state.rowCount,
       // quiltColumns: this.state.colCount,
@@ -133,7 +153,7 @@ class CustomProject extends React.Component {
         ? e.target.value.split(",").map((x) => {
             return parseInt(x, 10);
           })
-        : e.target.name === "selectedShapeType"
+        : e.target.name === "selectedPattern"
         ? parseInt(e.target.value, 10)
         : e.target.type === "checkbox"
         ? e.target.checked
@@ -142,6 +162,7 @@ class CustomProject extends React.Component {
     this.setState({ [e.target.name]: value });
   };
 
+  // todo: needed?
   onFabricBlockClick = (fabricId) => {
     if (this.state.selectedBlockIndex === null)
       this.setState({ selectedBlockIndex: fabricId });
@@ -158,6 +179,7 @@ class CustomProject extends React.Component {
     }
   };
 
+  // todo: needed?
   resetManualFabricBlocks = () => {
     let tmpManualFabricBlocks = this.state.fabricList
       .filter((x) => this.state.selectedFabrics.includes(x.id))
@@ -165,6 +187,7 @@ class CustomProject extends React.Component {
     this.setState({ manualFabricBlocks: tmpManualFabricBlocks });
   };
 
+  // todo: needed?
   onSelectFabricClick = (fabricId) => {
     // First, clean out any fabricIds that happen to not exist.
     //    bad state caused by a list of selected fabrics being saved and then a fabric getting deleted
@@ -203,6 +226,7 @@ class CustomProject extends React.Component {
     }
   };
 
+  // todo: needed?
   handleChangeFabricCount = (event) => {
     // find the manual block
     const fabricId = event.target.getAttribute("fabric_id");
@@ -225,7 +249,8 @@ class CustomProject extends React.Component {
           projectName={this.state.projectName}
           quiltWidth={this.state.quiltWidth}
           quiltHeight={this.state.quiltHeight}
-          quiltDefinition={this.state.quiltDefinition}
+          quiltDefinition={this.state.quiltDefinition} // todo: remove
+          patterns={this.state.patterns}
           // rowCount={this.state.rowCount}
           // colCount={this.state.colCount}
           // shapeTypes={this.state.shapeTypes}
@@ -233,7 +258,7 @@ class CustomProject extends React.Component {
           // shapeWidth={this.state.shapeWidth}
           // shapeHeight={this.state.shapeHeight}
           availableFabrics={this.state.fabricList}
-          selectedFabrics={this.state.selectedFabrics}
+          selectedFabrics={this.state.selectedFabrics} // todo: needed?
           // evenlyDistributeBlocks={this.state.evenlyDistributeBlocks}
           manualFabricBlocks={this.state.manualFabricBlocks || []}
           quiltBlocks={this.state.quiltBlocks}
@@ -253,8 +278,8 @@ class CustomProject extends React.Component {
           quiltWidth={parseInt(this.state.quiltWidth)}
           quiltHeight={parseInt(this.state.quiltHeight)}
           fabricList={this.state.fabricList}
-          quiltDefinition={this.state.quiltDefinition}
-          fabricMap={[3,5]}
+          quiltDefinition={this.state.quiltDefinition} // todo: pass from array of patterns based on selected pattern index
+          fabricMap={this.state.fabricMap}
           // quiltBlocks={this.state.quiltBlocks}
           // onFabricBlockClick={this.onFabricBlockClick}
           // selectedBlockIndex={this.state.selectedBlockIndex}

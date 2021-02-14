@@ -2,6 +2,9 @@ import React from "react";
 import FabricList from "./FabricList";
 import FabricBlockCount from "./FabricBlockCount";
 
+// todo: create table of fabric index and selected pattern for editing the fabricMap
+// todo: remove selected fabrics picker?  Or move it to a dialog that pops up when selecting the fabric for the row on the fabric map?
+
 class QuiltForm extends React.Component {
   handleChange = (e) => {
     this.props.onFormInputChange(e);
@@ -18,11 +21,10 @@ class QuiltForm extends React.Component {
   createOptions() {
     let options = [];
 
-    this.props.shapeTypes.map((shapeType) => {
-      // todo: refactor to return () instead of pushing to options
+    this.props.patterns.map((pattern) => {
       options.push(
-        <option value={shapeType.id} key={shapeType.id}>
-          {shapeType.name}
+        <option value={pattern.id} key={pattern.id}>
+          {pattern.name}
         </option>
       );
     });
@@ -64,6 +66,19 @@ class QuiltForm extends React.Component {
               value={this.props.quiltHeight}
               onChange={this.handleChange}
             />
+          </label>
+        </div>
+
+        <div>
+          <label>
+            Pattern:
+            <select
+              name="selectedPattern"
+              value={this.props.selectedPattern}
+              onChange={this.handleChange}
+            >
+              {this.createOptions()}
+            </select>
           </label>
         </div>
 
