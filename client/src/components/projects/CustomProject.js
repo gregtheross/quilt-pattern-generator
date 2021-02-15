@@ -7,9 +7,8 @@ import CustomQuiltForm from "../quilts/CustomQuiltForm.js";
 import * as ProjectApi from "../../api/ProjectApi";
 import * as QuiltApi from "../../api/QuiltApi";
 import * as FabricApi from "../../api/FabricApi";
+import * as PatternApi from "../../api/PatternApi";
 
-// todo: on load, fetch all patterns
-// todo: pass the selectedPattern.quiltDefinition to the CustomQuilt
 // todo: remove quiltdefinition from CustomProject state
 // todo: create table of fabric index and selected pattern for editing the fabricMap
 
@@ -27,11 +26,7 @@ class CustomProject extends React.Component {
       rowCount: 8,
       colCount: 11,
       selectedShapeType: 5,
-      // todo: fetch from API, default to []
-      patterns: [
-        {id:1, name:'test1'},
-        {id:2, name:'time together WIP'}
-      ],
+      patterns: [],
       selectedPattern: 0,
       fabricMap: [],
       // shapeTypes: [],
@@ -102,7 +97,14 @@ class CustomProject extends React.Component {
         console.log(error);
       });
 
-    // todo: get the patterns
+    // get the patterns
+    PatternApi.getPatterns()
+    .then((response) => {
+      this.setState({ patterns: response });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   // todo: needed?
@@ -242,6 +244,18 @@ class CustomProject extends React.Component {
     });
   };
 
+  getQuiltDefinition = () => {
+    const { patterns, selectedPattern    } = this.state;
+    if (selectedPattern) {
+      let pattern = patterns.find(x => x.id === selectedPattern);
+      if (pattern) {
+        return JSON.stringify(pattern.quiltDefinition);
+      }
+    }
+
+    return "";
+  }
+
   render() {
     return this.state.projectId !== undefined ? (
       <div>
@@ -251,6 +265,7 @@ class CustomProject extends React.Component {
           quiltHeight={this.state.quiltHeight}
           quiltDefinition={this.state.quiltDefinition} // todo: remove
           patterns={this.state.patterns}
+          selectedPattern={this.state.selectedPattern}
           // rowCount={this.state.rowCount}
           // colCount={this.state.colCount}
           // shapeTypes={this.state.shapeTypes}
@@ -278,7 +293,7 @@ class CustomProject extends React.Component {
           quiltWidth={parseInt(this.state.quiltWidth)}
           quiltHeight={parseInt(this.state.quiltHeight)}
           fabricList={this.state.fabricList}
-          quiltDefinition={this.state.quiltDefinition} // todo: pass from array of patterns based on selected pattern index
+          quiltDefinition={this.getQuiltDefinition()}
           fabricMap={this.state.fabricMap}
           // quiltBlocks={this.state.quiltBlocks}
           // onFabricBlockClick={this.onFabricBlockClick}
