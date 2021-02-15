@@ -82,26 +82,15 @@ class QuiltForm extends React.Component {
           </label>
         </div>
 
-        {/* todo: break out custom shapes into its own db store and api, add list of custom shapes here to pick from */}
-        {/* todo: hide this until we have an interface for it */}
-        {/* <div>
-          <label>
-            Quilt Definition
-            <textarea
-              style={{ height: 300, width: 300 }}
-              name="quiltDefinition"
-              value={this.props.quiltDefinition}
-              onChange={this.handleChange}
-            ></textarea>
-          </label>
-        </div> */}
+        {/* todo: shape editing should be done on the pattern page */}
+        {/* todo: break out custom shapes into its own db store and api, add list of custom shapes here to pick from? */}
         {/* <div>
           <label>
             Shapes:
-            // todo: add custom shapes component with add button, list of current shapes, and click on a shape to edit in a modal
+            // todo: add custom shapes component with add button, list of current shapes, and click on a shape to edit in a modal?
           </label>
         </div> */}
-        <div>
+        {/* <div>
           <label>
             Selected Fabrics:
             <FabricList
@@ -110,7 +99,7 @@ class QuiltForm extends React.Component {
               onSelectFabricClick={this.props.onSelectFabricClick}
             />
           </label>
-        </div>
+        </div> */}
         {/* {!this.props.evenlyDistributeBlocks && (
           <FabricBlockCount
             availableFabrics={this.props.availableFabrics}

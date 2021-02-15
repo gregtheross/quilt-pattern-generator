@@ -80,19 +80,8 @@ class CustomPatternForm extends React.Component {
 
 
 
-        {/* todo: break out custom shapes into its own db store and api, add list of custom shapes here to pick from */}
-        {/* todo: hide this until we have an interface for it */}
-        {/* <div>
-          <label>
-            Quilt Definition
-            <textarea
-              style={{ height: 300, width: 300 }}
-              name="quiltDefinition"
-              value={this.props.quiltDefinition}
-              onChange={this.handleChange}
-            ></textarea>
-          </label>
-        </div> */}
+        {/* todo: break out custom shapes into its own db store and api, add list of custom shapes here to pick from? */}
+        {/* todo: add shapes creator/editor */}
         {/* <div>
           <label>
             Shapes:
@@ -100,7 +89,6 @@ class CustomPatternForm extends React.Component {
           </label>
         </div> */}
 
-{/* todo: add shapes creator/editor */}
 
 {/* 
         <div>
