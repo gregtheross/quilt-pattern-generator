@@ -9,7 +9,6 @@ import * as QuiltApi from "../../api/QuiltApi";
 import * as FabricApi from "../../api/FabricApi";
 import * as PatternApi from "../../api/PatternApi";
 
-// todo: remove quiltdefinition from CustomProject state
 // todo: create table of fabric index and selected pattern for editing the fabricMap
 
 class CustomProject extends React.Component {
@@ -22,7 +21,6 @@ class CustomProject extends React.Component {
       projectName: "",
       quiltWidth: 100,
       quiltHeight: 100,
-      // quiltDefinition: "",
       rowCount: 8,
       colCount: 11,
       selectedShapeType: 5,
@@ -54,7 +52,6 @@ class CustomProject extends React.Component {
             projectName: response.name,
             quiltWidth: response.quiltWidth,
             quiltHeight: response.quiltHeight,
-            // quiltDefinition: JSON.stringify(response.quiltDefinition),
             rowCount: response.quiltRows,
             colCount: response.quiltColumns,
             selectedShapeType: response.quiltShapeType,
@@ -126,7 +123,6 @@ class CustomProject extends React.Component {
       quiltFabrics: this.state.selectedFabrics,
       quiltWidth: this.state.quiltWidth,
       quiltHeight: this.state.quiltHeight,
-      // quiltDefinition: JSON.parse(this.state.quiltDefinition),
       quiltBlocks: this.state.quiltBlocks,
       selectedPattern: this.state.selectedPattern,
       fabricMap: this.state.fabricMap,
@@ -263,7 +259,6 @@ class CustomProject extends React.Component {
           projectName={this.state.projectName}
           quiltWidth={this.state.quiltWidth}
           quiltHeight={this.state.quiltHeight}
-          // quiltDefinition={this.state.quiltDefinition} // todo: remove
           patterns={this.state.patterns}
           selectedPattern={this.state.selectedPattern}
           // rowCount={this.state.rowCount}
